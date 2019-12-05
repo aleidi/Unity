@@ -1,10 +1,13 @@
 ﻿public class ButtonBase
 {
-    public delegate void ButtonDown();
-    public event ButtonDown EventButtonDown;
+    public enum ButtonState{
+        ButtonDown,
+        ButtonUp
+    };
 
-    public delegate void ButtonUp();
-    public event ButtonUp EventButtonUp;
+    public delegate void Button();
+    public event Button EventButtonDown;
+    public event Button EventButtonUp;
 
     protected string m_sName;
     protected bool m_bIsPressed;
@@ -19,6 +22,24 @@
     public ButtonBase(string name)
     {
         m_sName = name;
+    }
+
+    public void OnButtonUp()
+    {
+        if(null == EventButtonUp)
+        {
+            return;
+        }
+        EventButtonUp.Invoke();
+    }
+
+    public void OnButtonDown()
+    {
+        if(null == EventButtonDown)
+        {
+            return;
+        }
+        EventButtonDown.Invoke();
     }
 
     public void SetName(string name) { m_sName = name; }

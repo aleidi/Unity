@@ -6,14 +6,14 @@ abstract public class LevelBase : MonoBehaviour
 {
     protected string m_sName;
 
+
     abstract public void EnterLevel();
     abstract public void LeaveLevel();
-    abstract public void Update();
+    virtual public void OnUpdate(float deltaTime) { }
 
 
     public LevelBase()
     {
-        m_sName = "";
     }
 
     public string GetName()

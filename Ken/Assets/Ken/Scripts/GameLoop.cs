@@ -4,17 +4,33 @@ using UnityEngine;
 
 public class GameLoop : MonoBehaviour
 {
+    void Awake()
+    {
+        OnInit();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        InputManager.Instance.OnInit();
-        LevelManager.Instance.OnInit();
+        GameInstance.Instance.OnInit();
     }
 
     // Update is called once per frame
     void Update()
     {
-        InputManager.Instance.Update(Time.deltaTime);
-        LevelManager.Instance.Update(Time.deltaTime);
+        GameInstance.Instance.OnUpdate(Time.deltaTime);
+    }
+
+    private void OnInit()
+    {
+        GameObject _playerPawn = (GameObject)Resources.Load("Model/PlayerPawn");
+        
+        //Create Gamemode
+        GameInstance.Instance.CreateGameMdoe(new PlayerController(), new Character(Instantiate(_playerPawn)));
+
+        //Set the button numbers
+        InputManager.Instance.SetButtonAmount(1);
+
+
     }
 }

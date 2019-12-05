@@ -2,13 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class Actor : MonoBehaviour
+public class Actor
 {
-    protected float m_fHp;
-    protected float m_fAtk;
-    protected float m_fDef;
-
-    abstract public void Move();
-    abstract public void Jump();
-
+    virtual public void OnInit() { }
+    virtual public void OnUpdate(float deltaTime) { }
 }

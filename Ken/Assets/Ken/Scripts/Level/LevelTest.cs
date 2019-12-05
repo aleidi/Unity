@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class LevelTest : LevelBase
 {
+
     override public void EnterLevel() { }
     override public void LeaveLevel() { }
-    override public void Update() { }
+    override public void OnUpdate(float deltaTime) { }
 }

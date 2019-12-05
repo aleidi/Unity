@@ -25,12 +25,12 @@ public class LevelManager
         Debug.Log("LevelManager is initiating!");
     }
 
-    public void Update(float deltaTime)
+    public void OnUpdate(float deltaTime)
     {
       //  Debug.Log("LevelManager is updating!" + "DeltaTime:" + deltaTime);
     }
 
-    public void OpenLevel(string levelName)
+    public void ChangeLevel(string levelName)
     {
         if(levelName == m_CurrentLevel.GetName())
         {
@@ -43,6 +43,11 @@ public class LevelManager
         m_CurrentLevel = m_Levels[levelName];
 
         m_CurrentLevel.EnterLevel();
+    }
+
+    private void LevelInit()
+    {
+        m_CurrentLevel = new LevelTest();
     }
 
 
