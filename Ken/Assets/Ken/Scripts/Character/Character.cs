@@ -41,11 +41,21 @@ public class Character : Pawn
 
     override public void Jump()
     {
+        Debug.Log("jump!");
+        ResetVelocity();
         m_Avatar.Rigid.AddForce(Vector3.up * m_fJumpForce);
     }
 
     public void Attack() {}
 
+    public Vector3 GetAvatarFootPosition()
+    {
+        return m_Avatar.Col.bounds.min;
+    }
 
+    protected void ResetVelocity()
+    {
+        m_Avatar.Rigid.velocity = Vector3.zero;
+    }
 
 }

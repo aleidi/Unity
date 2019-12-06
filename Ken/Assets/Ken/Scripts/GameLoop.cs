@@ -31,6 +31,6 @@ public class GameLoop : MonoBehaviour
         //Set the button numbers
         InputManager.Instance.SetButtonAmount(1);
 
-
+        
     }
 }

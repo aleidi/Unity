@@ -34,7 +34,6 @@ public class InputManager
         AxisInit();
     }
 
-    
 
     public void OnUpdate(float deltaTime)
     {
