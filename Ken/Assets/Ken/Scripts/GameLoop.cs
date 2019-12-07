@@ -21,6 +21,11 @@ public class GameLoop : MonoBehaviour
         GameInstance.Instance.OnUpdate(Time.deltaTime);
     }
 
+    private void FixedUpdate()
+    {
+        GameInstance.Instance.OnFixedUpdate(Time.fixedDeltaTime);
+    }
+
     private void OnInit()
     {
         GameObject _playerPawn = (GameObject)Resources.Load("Model/PlayerPawn");
@@ -29,8 +34,6 @@ public class GameLoop : MonoBehaviour
         GameInstance.Instance.CreateGameMdoe(new PlayerController(), new Character(Instantiate(_playerPawn)));
 
         //Set the button numbers
-        InputManager.Instance.SetButtonAmount(1);
-
-        
+        InputManager.Instance.SetButtonAmount(3);     
     }
 }

@@ -21,7 +21,7 @@ public class InputManager
     private string m_sBtnName;
     private float m_fVertical;
     private float m_fHorizontal;
-    private int m_iButtonNumbers = 1;
+    private int m_iButtonNumbers;
     private Dictionary<int, ButtonBase> m_Buttons;
     private AxisBase[] m_Axis;
 

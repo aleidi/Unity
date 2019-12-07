@@ -54,14 +54,27 @@ public class PlayerController : ControllerBase
 
     protected void SetInputment()
     {
-        BindButtonAction(0, ButtonBase.ButtonState.ButtonDown, DoJump);
+        //0 delegate Button0
+        BindButtonAction(0, ButtonBase.ButtonState.ButtonDown, DoAttack);
+        BindButtonAction(1, ButtonBase.ButtonState.ButtonDown, DoJump);
+        BindButtonAction(2, ButtonBase.ButtonState.ButtonDown, DoShiftIdleMode);
+        //0 delegate Joystick0
         BindAxis(0, DoMove);
     }
 
 
     protected void DoAttack()
     {
-        Debug.Log("Controller Attack Function!");
+        if (!IsInputEnable())
+        {
+            Debug.Log("input disabled!");
+            return;
+        }
+
+        DeactivateInput();
+        GetPlayerPawn().Attack();
+        ActivateInput();
+
     }
 
     protected void DoJump()
@@ -83,6 +96,14 @@ public class PlayerController : ControllerBase
 
     protected void DoMove(float value)
     {
+        if(value > 0)
+        {
+            SetPlayerPawnForward(Vector3.forward);
+        }
+        if(value < 0)
+        {
+            SetPlayerPawnForward(Vector3.back);
+        }
         m_PlayerPawn.Move(value);
     }
 
@@ -133,4 +154,13 @@ public class PlayerController : ControllerBase
         ResetCurrentJumpTimes();
     }
 
+    protected void DoShiftIdleMode()
+    {
+        GetPlayerPawn().ShiftIdleMode();
+    }
+
+    protected void SetPlayerPawnForward(Vector3 value)
+    {
+        GetPlayerPawn().SetForward(value);
+    }
 }

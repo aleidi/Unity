@@ -45,19 +45,6 @@ abstract public class ControllerBase
 
     virtual protected void FallOnGround() { }
 
-    public bool GetPlayer(out Character playerPawn)
-    {
-        playerPawn = m_PlayerPawn;
-        if(IsOwnedPlayerPawn())
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     public void SetPlayerPawn(Character player)
     {
         m_PlayerPawn = player;
@@ -99,6 +86,15 @@ abstract public class ControllerBase
     protected MovementState GetCurrentMovementState()
     {
         return m_eMovementState;
+    }
+
+    public Character GetPlayerPawn()
+    {
+        if(IsOwnedPlayerPawn())
+        {
+            return m_PlayerPawn;
+        }
+        return null;
     }
 
 }

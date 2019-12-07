@@ -27,6 +27,8 @@ public class GameInstance
 
         CheckGameMode();
         m_GameMode.OnInit();
+
+        CameraManager.Instance.OnInit();
     }
 
     public void OnUpdate(float deltaTime)
@@ -34,6 +36,12 @@ public class GameInstance
         InputManager.Instance.OnUpdate(deltaTime);
         LevelManager.Instance.OnUpdate(deltaTime);
         m_GameMode.OnUpdate(deltaTime);
+
+    }
+
+    public void OnFixedUpdate(float deltaTime)
+    {
+        CameraManager.Instance.OnUpdate(deltaTime);
     }
 
     public void CreateGameMdoe(PlayerController controller, Character playerPawn)
@@ -62,7 +70,7 @@ public class GameInstance
         }
     }
 
-    public Actor GetPlayerPawn()
+    public Character GetPlayerPawn()
     {
         return m_GameMode.GetPlayerPawn();
     }

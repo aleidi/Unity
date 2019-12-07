@@ -10,7 +10,7 @@ abstract public class Pawn : Actor
         Death
     };
 
-    protected PawnState m_eState;
+    protected PawnState m_ePawnState;
 
     virtual public void Move(float value) { }
     virtual public void Jump() { }
