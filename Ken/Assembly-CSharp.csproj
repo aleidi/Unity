@@ -95,6 +95,7 @@
     <None Include="Assets\Ken\Models\Unitychan\Shader\Unitychan_chara_akarami_blend.shader" />
     <None Include="Assets\Ken\Models\Unitychan\Shader\Unitychan_chara_hair.shader" />
     <None Include="Assets\Ken\Models\Unitychan\Shader\Unitychan_chara_eyelash_blend.shader" />
+    <None Include="Assets\Ken\Audios\Voice\VoiceNotes.txt" />
     <None Include="Assets\Ken\Models\Unitychan\Shader\Unitychan_chara_hada.shader" />
     <None Include="Assets\Ken\Models\Unitychan\Shader\Unitychan_chara_hada_blend.shader" />
     <Reference Include="Unity.Timeline.Editor">
