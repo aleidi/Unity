@@ -9,7 +9,7 @@ public class PlayerController : ControllerBase
     protected int m_iCurrentJumpTimes;
     protected bool m_bInputEnabled;
 
-    override public void OnInit()
+    public override void OnInit()
     {
         base.OnInit();
 
@@ -27,7 +27,7 @@ public class PlayerController : ControllerBase
     //for example: Button0 - Button9, then Index is from 0 - 9
     protected void BindButtonAction(int index, ButtonBase.ButtonState State,ButtonBase.Button ButtonFun)
     {
-        if (index > InputManager.Instance.GetButtonAmount() - 1)
+        if (index > InputMng.Instance.GetButtonAmount() - 1)
         {
             Debug.LogError("You can't get button with over ranged index!");
             return;
@@ -35,10 +35,10 @@ public class PlayerController : ControllerBase
         switch(State)
         {
             case ButtonBase.ButtonState.ButtonUp:
-                InputManager.Instance.GetButtons()[index].EventButtonUp += ButtonFun;
+                InputMng.Instance.GetButtons()[index].EventButtonUp += ButtonFun;
                 break;
             case ButtonBase.ButtonState.ButtonDown:
-                InputManager.Instance.GetButtons()[index].EventButtonDown += ButtonFun;
+                InputMng.Instance.GetButtons()[index].EventButtonDown += ButtonFun;
                 break;
             default:
                 Debug.LogError("Button Function haven't been binded to event!");
@@ -48,7 +48,7 @@ public class PlayerController : ControllerBase
 
     protected void BindAxis(int index,AxisBase.Axis AxisFun)
     {
-        InputManager.Instance.GetAxis()[index].EventAxis += AxisFun;
+        InputMng.Instance.GetAxis()[index].EventAxis += AxisFun;
 
     }
 
@@ -89,7 +89,10 @@ public class PlayerController : ControllerBase
         if(CanJump())
         {
             AddCurrentJumpTimes();
-            m_PlayerPawn.Jump();
+            if(m_PlayerPawn.Jump() == false)
+            {
+                ResetCurrentJumpTimes();
+            }
         }
         ActivateInput();
     }

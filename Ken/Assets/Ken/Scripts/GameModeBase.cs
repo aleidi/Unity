@@ -16,13 +16,13 @@ public class GameModeBase
         m_Controller.SetPlayerPawn(m_PlayerPawn);
     }
 
-    virtual public void OnInit()
+    public virtual void OnInit()
     {
         m_Controller.OnInit();
         m_PlayerPawn.OnInit();
     }
 
-    virtual public void OnUpdate(float deltaTime)
+    public virtual void OnUpdate(float deltaTime)
     {
         m_Controller.OnUpdate(deltaTime);
         m_PlayerPawn.OnUpdate(deltaTime);

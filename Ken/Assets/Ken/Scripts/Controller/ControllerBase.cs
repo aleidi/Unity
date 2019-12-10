@@ -19,8 +19,8 @@ abstract public class ControllerBase
         m_PlayerPawn = null;
     }
 
-    virtual public void OnInit() { }
-    virtual public void OnUpdate(float deltaTime)
+    public virtual void OnInit() { }
+    public virtual void OnUpdate(float deltaTime)
     {
         CheckMovementState();
     }

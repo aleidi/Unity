@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Character : Pawn
 {
-    public enum CharState
+    public enum ECharState
     {
         Idle,
         IdleArmedWeapon,
@@ -21,7 +21,7 @@ public class Character : Pawn
         public Animator Anim;
     }
 
-    protected struct AnimParaId
+    protected struct AnimParamId
     {
         public int IsWeaponArmed;
         public int Attack;
@@ -30,16 +30,15 @@ public class Character : Pawn
     }
 
     protected Avatar m_Avatar;
-    protected AnimParaId m_AnimParaId;
-    protected CharState m_CharState;
+    protected AnimParamId m_AnimParamId;
+    protected ECharState m_eCharState;
+    protected CharacterAttrBase m_Attribute;
+    protected WeaponBase m_Weapon;
+
     protected bool m_bIsWeaponArmed;
 
-    //Move Attributes
-    protected float m_fJumpForce;
-    protected float m_fMoveSpeed;
-    protected float m_fMoveSpeedAtten;
 
-    public Character() { }
+    public Character() {}
 
     public Character(GameObject avatar)
     {
@@ -55,45 +54,43 @@ public class Character : Pawn
 
         //Set animator parameters string to hash
         SetAnimParaHash();
-
-        //Set move attributes
-        InitMoveAttributes();
     }
 
-    protected void InitMoveAttributes()
-    {
-        m_fJumpForce = 250;
-        m_fMoveSpeed = 8;
-        m_fMoveSpeedAtten = 0.2f;
-    }
-
-    override public void Move(float value)
+    public override void Move(float value)
     {
         float _tmpSpeed;
-        if(CharState.Attacking == GetCharacterState())
+        if (ECharState.Attacking == GetCharacterState())
         {
-            _tmpSpeed = m_fMoveSpeed * m_fMoveSpeedAtten;
+            _tmpSpeed = m_Attribute.GetMoveSpeed() * m_Attribute.GetMoveSpeedAtten();
         }
         else
         {
-            _tmpSpeed = m_fMoveSpeed;
+            _tmpSpeed = m_Attribute.GetMoveSpeed();
         }
         Vector3 _moveVal = Vector3.right * value * _tmpSpeed;
         m_Avatar.Rigid.velocity = new Vector3(_moveVal.x, m_Avatar.Rigid.velocity.y, m_Avatar.Rigid.velocity.z);
-        SetAnimFloat(GetAnimParaId().Speed, Mathf.Abs(value));
+        SetAnimFloat(GetAnimParamId().Speed, Mathf.Abs(value));
     }
 
-    override public void Jump()
+    public bool Jump()
     {
-        SetAnimTrigger(GetAnimParaId().Jump);
-        GetAnimator().Play("Defence02", 0, 0);
+        if(GetCharacterState() == ECharState.Attacking)
+        {
+            return false;
+        }
+
+        SetAnimTrigger(GetAnimParamId().Jump);
+
         ResetVelocity();
-        m_Avatar.Rigid.AddForce(Vector3.up * m_fJumpForce);
+        m_Avatar.Rigid.AddForce(Vector3.up * m_Attribute.GetJumoForce());
+
+        return true;
     }
 
     public void Attack()
     {
-        SetAnimTrigger(GetAnimParaId().Attack);
+        SetAnimTrigger(GetAnimParamId().Attack);
+        m_Weapon.WeaponAttack(this);
     }
 
     public Vector3 GetAvatarFootPosition()
@@ -166,32 +163,32 @@ public class Character : Pawn
         GetAnimator().SetFloat(name, value);
     }
 
-    protected Animator GetAnimator()
+    public Animator GetAnimator()
     {
         return m_Avatar.Anim;
     }
 
-    protected int GetAnimParaHash(string name)
+    public int GetAnimParaHash(string name)
     {
         return Animator.StringToHash(name);
     }
 
     protected void SetAnimParaHash()
     {
-        m_AnimParaId.IsWeaponArmed = GetAnimParaHash("IsWeaponArmed");
-        m_AnimParaId.Attack = GetAnimParaHash("Attack");
-        m_AnimParaId.Jump = GetAnimParaHash("Jump");
-        m_AnimParaId.Speed = GetAnimParaHash("Speed");
+        m_AnimParamId.IsWeaponArmed = GetAnimParaHash("IsWeaponArmed");
+        m_AnimParamId.Attack = GetAnimParaHash("Attack");
+        m_AnimParamId.Jump = GetAnimParaHash("Jump");
+        m_AnimParamId.Speed = GetAnimParaHash("Speed");
     }
 
-    protected AnimParaId GetAnimParaId()
+    protected AnimParamId GetAnimParamId()
     {
-        return m_AnimParaId;
+        return m_AnimParamId;
     }
 
     public void ShiftIdleMode()
     {
-        if(true == m_bIsWeaponArmed)
+        if (true == m_bIsWeaponArmed)
         {
             RetriveWeapon();
         }
@@ -199,17 +196,17 @@ public class Character : Pawn
         {
             PullOutWeapon();
         }
-        SetAnimBool(GetAnimParaId().IsWeaponArmed, m_bIsWeaponArmed);
+        SetAnimBool(GetAnimParamId().IsWeaponArmed, m_bIsWeaponArmed);
     }
 
     public void ResetAttackTrigger()
     {
-        ResetAnimTrigger(GetAnimParaId().Attack);
+        ResetAnimTrigger(GetAnimParamId().Attack);
     }
 
     public void ResetJumpTrigger()
     {
-        ResetAnimTrigger(GetAnimParaId().Jump);
+        ResetAnimTrigger(GetAnimParamId().Jump);
     }
 
     public void SetForward(Vector3 value)
@@ -222,13 +219,31 @@ public class Character : Pawn
         return m_Avatar.Trans.position;
     }
 
-    public void SetCharacterState(CharState charState)
+    public void SetCharacterState(ECharState ECharState)
     {
-        m_CharState = charState;
+        m_eCharState = ECharState;
     }
 
-    protected CharState GetCharacterState()
+    public ECharState GetCharacterState()
     {
-        return m_CharState;
+        return m_eCharState;
+    }
+
+    public void SetAttribute(CharacterAttrBase attribute)
+    {
+        m_Attribute = attribute;
+    }
+
+    public void SetAvatar(GameObject avatar)
+    {
+        m_Avatar.Trans = avatar.transform;
+        m_Avatar.Rigid = avatar.transform.GetComponent<Rigidbody>();
+        m_Avatar.Col = avatar.transform.GetComponent<Collider>();
+        m_Avatar.Anim = avatar.transform.GetComponent<Animator>();
+    }
+
+    public void SetWeapon(WeaponBase weapon)
+    {
+        m_Weapon = weapon;
     }
 }

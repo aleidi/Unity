@@ -62,6 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AnimEvent.cs" />
     <Compile Include="Assets\Ken\Scripts\Animator\AttackState.cs" />
     <Compile Include="Assets\Ken\Scripts\Animator\IdleArmedWeaponState.cs" />
     <Compile Include="Assets\Ken\Scripts\Animator\IdleState.cs" />
@@ -69,23 +70,40 @@
     <Compile Include="Assets\Ken\Scripts\Animator\MoveState.cs" />
     <Compile Include="Assets\Ken\Scripts\Animator\ResetAttackTrigger.cs" />
     <Compile Include="Assets\Ken\Scripts\Animator\ResetJumpTrigger.cs" />
+    <Compile Include="Assets\Ken\Scripts\Attribute\CharacterAttrBase.cs" />
+    <Compile Include="Assets\Ken\Scripts\Attribute\MonsterAttribute.cs" />
+    <Compile Include="Assets\Ken\Scripts\Attribute\PlayerAttribute.cs" />
+    <Compile Include="Assets\Ken\Scripts\Builder\CharacterBuilderBase.cs" />
+    <Compile Include="Assets\Ken\Scripts\Builder\CharacterBuilderSystem.cs" />
+    <Compile Include="Assets\Ken\Scripts\Builder\MonsterBuilder.cs" />
+    <Compile Include="Assets\Ken\Scripts\Builder\PlayerBuilder.cs" />
     <Compile Include="Assets\Ken\Scripts\Camera\Camera2D.cs" />
     <Compile Include="Assets\Ken\Scripts\Camera\CameraBase.cs" />
-    <Compile Include="Assets\Ken\Scripts\Camera\CameraManager.cs" />
+    <Compile Include="Assets\Ken\Scripts\Camera\CameraMng.cs" />
     <Compile Include="Assets\Ken\Scripts\Character\Actor.cs" />
     <Compile Include="Assets\Ken\Scripts\Character\Character.cs" />
     <Compile Include="Assets\Ken\Scripts\Character\Pawn.cs" />
+    <Compile Include="Assets\Ken\Scripts\Character\Skeleton.cs" />
+    <Compile Include="Assets\Ken\Scripts\Controller\AIController.cs" />
     <Compile Include="Assets\Ken\Scripts\Controller\ControllerBase.cs" />
     <Compile Include="Assets\Ken\Scripts\Controller\PlayerController.cs" />
+    <Compile Include="Assets\Ken\Scripts\Factory\AssetFactory.cs" />
+    <Compile Include="Assets\Ken\Scripts\Factory\CharacterFactory.cs" />
+    <Compile Include="Assets\Ken\Scripts\Factory\CharacterFactoryBase.cs" />
+    <Compile Include="Assets\Ken\Scripts\Factory\FactoryMng.cs" />
     <Compile Include="Assets\Ken\Scripts\GameInstance.cs" />
     <Compile Include="Assets\Ken\Scripts\GameLoop.cs" />
     <Compile Include="Assets\Ken\Scripts\GameModeBase.cs" />
+    <Compile Include="Assets\Ken\Scripts\GameTools.cs" />
+    <Compile Include="Assets\Ken\Scripts\Global\ConfigMng.cs" />
     <Compile Include="Assets\Ken\Scripts\Input\AxisBase.cs" />
     <Compile Include="Assets\Ken\Scripts\Input\ButtonBase.cs" />
-    <Compile Include="Assets\Ken\Scripts\Input\InputManager.cs" />
+    <Compile Include="Assets\Ken\Scripts\Input\InputMng.cs" />
     <Compile Include="Assets\Ken\Scripts\Level\LevelBase.cs" />
-    <Compile Include="Assets\Ken\Scripts\Level\LevelManager.cs" />
+    <Compile Include="Assets\Ken\Scripts\Level\LevelMng.cs" />
     <Compile Include="Assets\Ken\Scripts\Level\LevelTest.cs" />
+    <Compile Include="Assets\Ken\Scripts\Weapon\WeaponBase.cs" />
+    <Compile Include="Assets\Ken\Scripts\Weapon\WeaponSword.cs" />
     <None Include="Assets\Ken\Models\Unitychan\Shader\Unitychan_chara_eye.shader" />
     <None Include="Assets\Ken\Models\Unitychan\Shader\Unitychan_chara_fuku.shader" />
     <None Include="Assets\Ken\Audios\Voice\Unitychan\unity-chan_voice_list.txt" />

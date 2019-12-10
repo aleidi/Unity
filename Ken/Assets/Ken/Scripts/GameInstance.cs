@@ -22,26 +22,26 @@ public class GameInstance
     public void OnInit()
     {
 
-        InputManager.Instance.OnInit();
-        LevelManager.Instance.OnInit();
+        InputMng.Instance.OnInit();
+        LevelMng.Instance.OnInit();
 
         CheckGameMode();
         m_GameMode.OnInit();
 
-        CameraManager.Instance.OnInit();
+        CameraMng.Instance.OnInit();
     }
 
     public void OnUpdate(float deltaTime)
     {
-        InputManager.Instance.OnUpdate(deltaTime);
-        LevelManager.Instance.OnUpdate(deltaTime);
+        InputMng.Instance.OnUpdate(deltaTime);
+        LevelMng.Instance.OnUpdate(deltaTime);
         m_GameMode.OnUpdate(deltaTime);
 
     }
 
     public void OnFixedUpdate(float deltaTime)
     {
-        CameraManager.Instance.OnUpdate(deltaTime);
+        CameraMng.Instance.OnUpdate(deltaTime);
     }
 
     public void CreateGameMdoe(PlayerController controller, Character playerPawn)

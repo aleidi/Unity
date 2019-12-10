@@ -9,7 +9,7 @@ abstract public class LevelBase : MonoBehaviour
 
     abstract public void EnterLevel();
     abstract public void LeaveLevel();
-    virtual public void OnUpdate(float deltaTime) { }
+    public virtual void OnUpdate(float deltaTime) { }
 
 
     public LevelBase()

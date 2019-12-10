@@ -12,7 +12,6 @@ abstract public class Pawn : Actor
 
     protected PawnState m_ePawnState;
 
-    virtual public void Move(float value) { }
-    virtual public void Jump() { }
+    public virtual void Move(float value) { }
 
 }

@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class Actor
 {
-    virtual public void OnInit() { }
-    virtual public void OnUpdate(float deltaTime) { }
+    public virtual void OnInit() { }
+    public virtual void OnUpdate(float deltaTime) { }
 }

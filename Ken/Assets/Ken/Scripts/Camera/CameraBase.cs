@@ -15,9 +15,9 @@ abstract public class CameraBase
         m_MainCamera = camera;
     }
 
-    virtual public void OnInit() { }
+    public virtual void OnInit() { }
 
-    virtual public void OnUpdate(float deltaTime) { }
+    public virtual void OnUpdate(float deltaTime) { }
 
     public void SetTarget(Vector3 target)
     {

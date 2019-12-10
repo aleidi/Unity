@@ -256,3 +256,12 @@ F:\GitHub\Unity\Ken\Temp\bin\Debug\UnityEngine.XRModule.xml
 F:\GitHub\Unity\Ken\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 F:\GitHub\Unity\Ken\obj\Debug\Assembly-CSharp.dll
 F:\GitHub\Unity\Ken\obj\Debug\Assembly-CSharp.pdb
+F:\GitHub\Unity\Ken\Temp\bin\Debug\Unity.Timeline.Editor.pdb
+F:\GitHub\Unity\Ken\Temp\bin\Debug\Unity.VSCode.Editor.pdb
+F:\GitHub\Unity\Ken\Temp\bin\Debug\Unity.TextMeshPro.Editor.pdb
+F:\GitHub\Unity\Ken\Temp\bin\Debug\UnityEngine.UI.pdb
+F:\GitHub\Unity\Ken\Temp\bin\Debug\Unity.Timeline.pdb
+F:\GitHub\Unity\Ken\Temp\bin\Debug\Unity.CollabProxy.Editor.pdb
+F:\GitHub\Unity\Ken\Temp\bin\Debug\Unity.Rider.Editor.pdb
+F:\GitHub\Unity\Ken\Temp\bin\Debug\Unity.TextMeshPro.pdb
+F:\GitHub\Unity\Ken\Temp\bin\Debug\UnityEditor.UI.pdb

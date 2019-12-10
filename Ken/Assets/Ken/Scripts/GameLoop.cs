@@ -28,12 +28,16 @@ public class GameLoop : MonoBehaviour
 
     private void OnInit()
     {
-        GameObject _playerPawn = (GameObject)Resources.Load("Model/PlayerPawn");
-        
+        FactoryMng.Instance.OnInit();
+
+        Character _player = FactoryMng.Instance.GetCharacterFactory().CreatePlayer(EPlayer.Player, EWeapon.Sword, new Vector3(0, 5, 3.5f));
+
+        FactoryMng.Instance.GetCharacterFactory().CreateMonster(EMonster.Skeleton, EWeapon.Sword, new Vector3(5, 5, 3.5f));
+
         //Create Gamemode
-        GameInstance.Instance.CreateGameMdoe(new PlayerController(), new Character(Instantiate(_playerPawn)));
+        GameInstance.Instance.CreateGameMdoe(new PlayerController(), _player);
 
         //Set the button numbers
-        InputManager.Instance.SetButtonAmount(3);     
+        InputMng.Instance.SetButtonAmount(3);     
     }
 }

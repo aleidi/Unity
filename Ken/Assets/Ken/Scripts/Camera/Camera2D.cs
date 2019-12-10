@@ -18,7 +18,7 @@ public class Camera2D : CameraBase
     public Camera2D(Camera camera):base(camera) {}
 
 
-    override public void OnInit()
+    public override void OnInit()
     {
        base.OnInit();
 
@@ -28,7 +28,7 @@ public class Camera2D : CameraBase
         SetFollowTarget2D();
     }
 
-    override public void OnUpdate(float deltaTime)
+    public override void OnUpdate(float deltaTime)
     {
         base.OnUpdate(deltaTime);
 
