@@ -27,12 +27,13 @@ public class PlayerBuilder : CharacterBuilderBase
     public override void AddWeapon()
     {
         m_BuildParam.m_Character.SetWeapon(new WeaponSword());
+        m_BuildParam.m_Character.GetWeapon().SetOwner(m_BuildParam.m_Character);
 ;    }
 
     public override void SetCharacterAttr()
     {
         CharacterAttrBase _attribtue = new PlayerAttribute(100, 100, 10,
-          8f, 0.2f, 250,
+          8f,0.2f, 250, 2,
           "Player");
         m_BuildParam.m_Character.SetAttribute(_attribtue);
     }

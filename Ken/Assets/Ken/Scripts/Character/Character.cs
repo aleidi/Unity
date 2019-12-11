@@ -7,10 +7,11 @@ public class Character : Pawn
     public enum ECharState
     {
         Idle,
-        IdleArmedWeapon,
+        IdleInBattle,
         Attacking,
         Moving,
-        Jumping
+        Jumping,
+        Hited
     }
 
     protected struct Avatar
@@ -19,13 +20,15 @@ public class Character : Pawn
         public Rigidbody Rigid;
         public Collider Col;
         public Animator Anim;
+        public AnimEvent AnimEvent;
     }
 
     protected struct AnimParamId
     {
-        public int IsWeaponArmed;
+        public int IsInBattle;
         public int Attack;
         public int Jump;
+        public int Hited;
         public int Speed;
     }
 
@@ -35,7 +38,8 @@ public class Character : Pawn
     protected CharacterAttrBase m_Attribute;
     protected WeaponBase m_Weapon;
 
-    protected bool m_bIsWeaponArmed;
+    protected bool m_bIsInBattle;
+    protected int m_iCurrentJumpTimes = 0;
 
 
     public Character() {}
@@ -54,44 +58,54 @@ public class Character : Pawn
 
         //Set animator parameters string to hash
         SetAnimParaHash();
+
+        m_Avatar.AnimEvent.EventAttack += Attack;
     }
+
+    #region Move mode interface which the derived class probably need to overrdie
 
     public override void Move(float value)
     {
-        float _tmpSpeed;
-        if (ECharState.Attacking == GetCharacterState())
-        {
-            _tmpSpeed = m_Attribute.GetMoveSpeed() * m_Attribute.GetMoveSpeedAtten();
-        }
-        else
-        {
-            _tmpSpeed = m_Attribute.GetMoveSpeed();
-        }
-        Vector3 _moveVal = Vector3.right * value * _tmpSpeed;
+        Vector3 _moveVal = Vector3.right * value * m_Attribute.GetMoveSpeed() * m_Attribute.GetMoveSpeedAtten();
         m_Avatar.Rigid.velocity = new Vector3(_moveVal.x, m_Avatar.Rigid.velocity.y, m_Avatar.Rigid.velocity.z);
         SetAnimFloat(GetAnimParamId().Speed, Mathf.Abs(value));
     }
 
-    public bool Jump()
+    public virtual bool Jump()
     {
-        if(GetCharacterState() == ECharState.Attacking)
-        {
-            return false;
-        }
+        m_iCurrentJumpTimes++;
 
         SetAnimTrigger(GetAnimParamId().Jump);
-
+        GetAnimator().Play("Jump", 0, 0);
         ResetVelocity();
         m_Avatar.Rigid.AddForce(Vector3.up * m_Attribute.GetJumoForce());
 
         return true;
     }
 
-    public void Attack()
+    public virtual void PlayAttackAnim()
     {
         SetAnimTrigger(GetAnimParamId().Attack);
-        m_Weapon.WeaponAttack(this);
     }
+
+    protected virtual void Attack()
+    {
+        m_Weapon.WeaponAttack();
+    }
+
+    public void ShiftIdleMode()
+    {
+        m_bIsInBattle = !m_bIsInBattle;
+
+        SetAnimBool(GetAnimParamId().IsInBattle, m_bIsInBattle);
+    }
+
+    public virtual void UnderAttack()
+    {
+        Debug.Log(m_Avatar.Trans.name + "is under attack!");
+    }
+
+    #endregion
 
     public Vector3 GetAvatarFootPosition()
     {
@@ -101,16 +115,6 @@ public class Character : Pawn
     protected void ResetVelocity()
     {
         m_Avatar.Rigid.velocity = Vector3.zero;
-    }
-
-    public void RetriveWeapon()
-    {
-        m_bIsWeaponArmed = false;
-    }
-
-    public void PullOutWeapon()
-    {
-        m_bIsWeaponArmed = true;
     }
 
     protected void SetAnimInt(int id, int value)
@@ -175,9 +179,10 @@ public class Character : Pawn
 
     protected void SetAnimParaHash()
     {
-        m_AnimParamId.IsWeaponArmed = GetAnimParaHash("IsWeaponArmed");
+        m_AnimParamId.IsInBattle = GetAnimParaHash("IsInBattle");
         m_AnimParamId.Attack = GetAnimParaHash("Attack");
         m_AnimParamId.Jump = GetAnimParaHash("Jump");
+        m_AnimParamId.Hited = GetAnimParaHash("Hited");
         m_AnimParamId.Speed = GetAnimParaHash("Speed");
     }
 
@@ -186,18 +191,6 @@ public class Character : Pawn
         return m_AnimParamId;
     }
 
-    public void ShiftIdleMode()
-    {
-        if (true == m_bIsWeaponArmed)
-        {
-            RetriveWeapon();
-        }
-        else
-        {
-            PullOutWeapon();
-        }
-        SetAnimBool(GetAnimParamId().IsWeaponArmed, m_bIsWeaponArmed);
-    }
 
     public void ResetAttackTrigger()
     {
@@ -214,9 +207,22 @@ public class Character : Pawn
         m_Avatar.Trans.forward = value;
     }
 
+    
     public Vector3 GetPlayerPawnPosition()
     {
         return m_Avatar.Trans.position;
+    }
+
+    public Vector3 GetPlayerForward()
+    {
+        if(m_Avatar.Trans.rotation.y == 0)
+        {
+            return Vector3.right;
+        }
+        else
+        {
+            return Vector3.left;
+        }
     }
 
     public void SetCharacterState(ECharState ECharState)
@@ -240,10 +246,48 @@ public class Character : Pawn
         m_Avatar.Rigid = avatar.transform.GetComponent<Rigidbody>();
         m_Avatar.Col = avatar.transform.GetComponent<Collider>();
         m_Avatar.Anim = avatar.transform.GetComponent<Animator>();
+        m_Avatar.AnimEvent = avatar.transform.GetComponent<AnimEvent>();
     }
 
     public void SetWeapon(WeaponBase weapon)
     {
         m_Weapon = weapon;
     }
+
+    public WeaponBase GetWeapon()
+    {
+        return m_Weapon;
+    }
+
+    public void SetMoveSpeedAtten(float value)
+    {
+        m_Attribute.SetMoveSpeedAtten(value);
+    }
+
+    public int GetJumpTimes()
+    {
+        return m_Attribute.GetJumpTimes();
+    }
+
+    public int GetCurrentJumpTimes()
+    {
+        return m_iCurrentJumpTimes;
+    }
+
+    public void ResetJumpTimes()
+    {
+        m_iCurrentJumpTimes = 0;
+    }
+
+    public void FallOnGround()
+    {
+        ResetJumpTimes();
+        m_Attribute.SetMoveSpeedAtten(1);
+    }
+
+    public void JumpIntoAir()
+    {
+
+    }
+
 }

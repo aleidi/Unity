@@ -15,7 +15,6 @@ public class PlayerController : ControllerBase
 
         SetInputment();
         ActivateInput();
-        SetJumpTimes(2);
     }
 
     public override void OnUpdate(float deltaTime)
@@ -72,7 +71,7 @@ public class PlayerController : ControllerBase
         }
 
         DeactivateInput();
-        GetPlayerPawn().Attack();
+        m_PlayerPawn.PlayAttackAnim();
         ActivateInput();
 
     }
@@ -88,11 +87,7 @@ public class PlayerController : ControllerBase
         DeactivateInput();
         if(CanJump())
         {
-            AddCurrentJumpTimes();
-            if(m_PlayerPawn.Jump() == false)
-            {
-                ResetCurrentJumpTimes();
-            }
+            m_PlayerPawn.Jump();
         }
         ActivateInput();
     }
@@ -110,30 +105,15 @@ public class PlayerController : ControllerBase
         m_PlayerPawn.Move(value);
     }
 
-    public bool CanJump()
+    protected bool CanJump()
     {
-        if (m_iCurrentJumpTimes >= m_iJumpTimes)
+        if (m_PlayerPawn.GetCurrentJumpTimes() >= m_PlayerPawn.GetJumpTimes() && 
+            m_PlayerPawn.GetCharacterState() != Character.ECharState.Attacking)
         {
             return false;
         }
 
         return true;
-    }
-
-    protected void ResetCurrentJumpTimes()
-    {
-        m_iCurrentJumpTimes = 0;
-    }
-
-    protected void AddCurrentJumpTimes()
-    {
-        m_iCurrentJumpTimes++;
-    }
-
-    protected void SetJumpTimes(int val)
-    {
-        m_iJumpTimes = val;
-        m_iCurrentJumpTimes = 0;
     }
 
     protected void ActivateInput()
@@ -151,19 +131,25 @@ public class PlayerController : ControllerBase
         return m_bInputEnabled;
     }
 
-    override protected void FallOnGround()
+     protected override void FallOnGround()
     {
         base.FallOnGround();
-        ResetCurrentJumpTimes();
+        m_PlayerPawn.FallOnGround();
+    }
+
+    protected override void JumpIntoAir()
+    {
+        base.JumpIntoAir();
+        m_PlayerPawn.JumpIntoAir();
     }
 
     protected void DoShiftIdleMode()
     {
-        GetPlayerPawn().ShiftIdleMode();
+        m_PlayerPawn.ShiftIdleMode();
     }
 
     protected void SetPlayerPawnForward(Vector3 value)
     {
-        GetPlayerPawn().SetForward(value);
+        m_PlayerPawn.SetForward(value);
     }
 }

@@ -62,9 +62,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\AnimEvent.cs" />
+    <Compile Include="Assets\Ken\Scripts\Animator\AnimEvent.cs" />
     <Compile Include="Assets\Ken\Scripts\Animator\AttackState.cs" />
-    <Compile Include="Assets\Ken\Scripts\Animator\IdleArmedWeaponState.cs" />
+    <Compile Include="Assets\Ken\Scripts\Animator\HitedState.cs" />
+    <Compile Include="Assets\Ken\Scripts\Animator\IdleInBattleState.cs" />
     <Compile Include="Assets\Ken\Scripts\Animator\IdleState.cs" />
     <Compile Include="Assets\Ken\Scripts\Animator\JumpState.cs" />
     <Compile Include="Assets\Ken\Scripts\Animator\MoveState.cs" />
@@ -103,6 +104,8 @@
     <Compile Include="Assets\Ken\Scripts\Level\LevelMng.cs" />
     <Compile Include="Assets\Ken\Scripts\Level\LevelTest.cs" />
     <Compile Include="Assets\Ken\Scripts\Weapon\WeaponBase.cs" />
+    <Compile Include="Assets\Ken\Scripts\Weapon\WeaponMelee.cs" />
+    <Compile Include="Assets\Ken\Scripts\Weapon\WeaponProjectile.cs" />
     <Compile Include="Assets\Ken\Scripts\Weapon\WeaponSword.cs" />
     <None Include="Assets\Ken\Models\Unitychan\Shader\Unitychan_chara_eye.shader" />
     <None Include="Assets\Ken\Models\Unitychan\Shader\Unitychan_chara_fuku.shader" />

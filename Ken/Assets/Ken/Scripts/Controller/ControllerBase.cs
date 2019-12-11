@@ -37,13 +37,19 @@ abstract public class ControllerBase
         }
         if(IsOnAir())
         {
+            if(m_eLastMovementState == MovementState.Gound)
+            {
+                JumpIntoAir();
+            }
             m_eMovementState = MovementState.Air;
         }
 
         m_eLastMovementState = m_eMovementState;
     }
 
-    virtual protected void FallOnGround() { }
+    protected virtual void FallOnGround() { }
+
+    protected virtual void JumpIntoAir() { }
 
     public void SetPlayerPawn(Character player)
     {

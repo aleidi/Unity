@@ -8,13 +8,14 @@ public class AttackState : StateMachineBehaviour
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         GameInstance.Instance.GetPlayerPawn().SetCharacterState(Character.ECharState.Attacking);
+        GameInstance.Instance.GetPlayerPawn().SetMoveSpeedAtten(0.1f);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    //public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+        //public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        //{
+        //    
+        //}
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     //public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

@@ -24,6 +24,14 @@ public class FactoryMng
         m_MonsterList = new List<Character>();
     }
 
+    public void OnUpdate(float deltaTime)
+    {
+        foreach(Character monster in m_MonsterList)
+        {
+            monster.OnUpdate(deltaTime);
+        }
+    }
+
     private List<Character> m_MonsterList;
     private CharacterFactory m_CharacterFactory;
     public CharacterFactory GetCharacterFactory()

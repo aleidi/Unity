@@ -4,9 +4,9 @@
 
     public PlayerAttribute(
         int maxHp, int maxEndurance, float range,
-        float moveSpeed, float moveSpeedAtten, float jumpForce,
+        float moveSpeed, float moveSpeedAtten, float jumpForce, int jumpTimes,
         string name) : base(maxHp, maxEndurance, range,
-        moveSpeed, moveSpeedAtten, jumpForce,
+        moveSpeed, moveSpeedAtten, jumpForce, jumpTimes,
         name)
     { }
 }

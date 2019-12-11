@@ -12,6 +12,7 @@
     protected float m_fMoveSpeed;
     protected float m_fMoveSpeedAtten;
     protected float m_fJumpForce;
+    protected int m_iJumpTimes;
 
 
     protected string m_AttrName;
@@ -20,7 +21,7 @@
 
     public CharacterAttrBase(
         int maxHp, int maxEndurance, float range,
-        float moveSpeed, float moveSpeedAtten, float jumpForce,
+        float moveSpeed, float moveSpeedAtten, float jumpForce, int jumpTimes,
         string name)
     {
         m_iMaxHp = maxHp;
@@ -31,6 +32,7 @@
         m_fMoveSpeed = moveSpeed;
         m_fMoveSpeedAtten = moveSpeedAtten;
         m_fJumpForce = jumpForce;
+        m_iJumpTimes = jumpTimes;
         m_AttrName = name;
     }
 
@@ -54,9 +56,19 @@
         return m_fMoveSpeedAtten;
     }
 
+    public void SetMoveSpeedAtten(float value)
+    {
+        m_fMoveSpeedAtten = value;
+    }
+
     public float GetJumoForce()
     {
         return m_fJumpForce;
+    }
+
+    public int GetJumpTimes()
+    {
+        return m_iJumpTimes;
     }
 
     public float GetRange()

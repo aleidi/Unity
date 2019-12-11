@@ -21,7 +21,6 @@ public class GameInstance
 
     public void OnInit()
     {
-
         InputMng.Instance.OnInit();
         LevelMng.Instance.OnInit();
 
@@ -29,6 +28,7 @@ public class GameInstance
         m_GameMode.OnInit();
 
         CameraMng.Instance.OnInit();
+
     }
 
     public void OnUpdate(float deltaTime)
@@ -36,6 +36,8 @@ public class GameInstance
         InputMng.Instance.OnUpdate(deltaTime);
         LevelMng.Instance.OnUpdate(deltaTime);
         m_GameMode.OnUpdate(deltaTime);
+
+        FactoryMng.Instance.OnUpdate(deltaTime);
 
     }
 
@@ -80,4 +82,8 @@ public class GameInstance
         return m_GameMode.GetController();
     }
 
+    public List<Character> GetMonsterList()
+    {
+        return FactoryMng.Instance.GetMonsterList();
+    }
 }

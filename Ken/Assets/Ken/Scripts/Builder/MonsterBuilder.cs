@@ -27,12 +27,13 @@ public class MonsterBuilder : CharacterBuilderBase
     public override void AddWeapon()
     {
         m_BuildParam.m_Character.SetWeapon(new WeaponSword());
+        m_BuildParam.m_Character.GetWeapon().SetOwner(m_BuildParam.m_Character);
     }
 
     public override void SetCharacterAttr()
     {
         CharacterAttrBase _attribtue = new MonsterAttribute(100, 100, 10,
-            8f, 0.2f, 250,
+            8f, 0.2f, 250, 1,
             "Monster");
         m_BuildParam.m_Character.SetAttribute(_attribtue);
 

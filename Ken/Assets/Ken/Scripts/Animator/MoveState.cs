@@ -8,6 +8,9 @@ public class MoveState : StateMachineBehaviour
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         GameInstance.Instance.GetPlayerPawn().SetCharacterState(Character.ECharState.Moving);
+        GameInstance.Instance.GetPlayerPawn().SetMoveSpeedAtten(1);
+
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
