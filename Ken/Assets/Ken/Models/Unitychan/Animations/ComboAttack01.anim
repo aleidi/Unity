@@ -21966,14 +21966,6 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.13333334
-    functionName: AnimPauseTemporarily
-    data: 
-    objectReferenceParameter: {fileID: 1355700416390254559, guid: 8e4102ede80dfba459bfc9df4f300a92,
-      type: 3}
-    floatParameter: 0.05
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.13333334
     functionName: OnAttack
     data: 
     objectReferenceParameter: {fileID: 1355700416390254559, guid: 8e4102ede80dfba459bfc9df4f300a92,

@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class FactoryMng
 {
-    static private FactoryMng _Instance;
-    static public FactoryMng Instance
+    private static FactoryMng _Instance;
+    public static FactoryMng Instance
     {
         get
         {

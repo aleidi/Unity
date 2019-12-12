@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class LevelMng
 {
-    static private LevelMng m_Instance;
-    static public LevelMng Instance
+    private static LevelMng m_Instance;
+    public static LevelMng Instance
     {
         get
         {

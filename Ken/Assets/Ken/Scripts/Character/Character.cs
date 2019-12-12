@@ -290,4 +290,21 @@ public class Character : Pawn
 
     }
 
+    public void AttackAnimPause()
+    {
+        AnimPauseForSeconds(0.07f);
+    }
+    
+    protected void AnimPauseForSeconds(float time)
+    {
+        float _spd = GetAnimator().speed;
+        GetAnimator().speed = 0;
+        GameTools.Instance.TimerForSeconds(time, ResetAnimSpeed,_spd);
+    }
+
+    protected void ResetAnimSpeed(float theSpeed)
+    {
+        GetAnimator().speed = theSpeed;
+    }
+
 }

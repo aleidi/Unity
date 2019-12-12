@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CameraMng
 {
-    static private CameraMng _Instance;
-    static public CameraMng Instance
+    private static CameraMng _Instance;
+    public static CameraMng Instance
     {
         get
         {

@@ -14,26 +14,20 @@
     protected float m_fJumpForce;
     protected int m_iJumpTimes;
 
-
     protected string m_AttrName;
+
+    protected AttributeStrategyBase m_AttrStrategy;
 
     public CharacterAttrBase() { }
 
-    public CharacterAttrBase(
-        int maxHp, int maxEndurance, float range,
-        float moveSpeed, float moveSpeedAtten, float jumpForce, int jumpTimes,
-        string name)
+    public void SetAttrStrategy(AttributeStrategyBase theAttrStrategy)
     {
-        m_iMaxHp = maxHp;
-        m_iNowHp = m_iMaxHp;
-        m_iMaxEndurance = maxEndurance;
-        m_iNowEndurance = m_iMaxEndurance;
-        m_fRange = range;
-        m_fMoveSpeed = moveSpeed;
-        m_fMoveSpeedAtten = moveSpeedAtten;
-        m_fJumpForce = jumpForce;
-        m_iJumpTimes = jumpTimes;
-        m_AttrName = name;
+        m_AttrStrategy = theAttrStrategy;
+    }
+
+    public virtual void InitAttr()
+    {
+        m_AttrStrategy.InitAttr(this);
     }
 
     public int GetMaxHp()

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GameInstance
 {
-    static private GameInstance m_Instance;
-    static public GameInstance Instance
+    private static GameInstance m_Instance;
+    public static GameInstance Instance
     {
         get
         {

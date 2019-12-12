@@ -21,6 +21,8 @@ public class WeaponSword : WeaponMelee
                     {
                         monster.UnderAttack();
                     }
+                    
+                    m_Owner.AttackAnimPause();
                 }
                 break;
 
