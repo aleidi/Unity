@@ -32,7 +32,7 @@ public class Camera2D : CameraBase
     {
         base.OnUpdate(deltaTime);
 
-        SetTarget(GameInstance.Instance.GetPlayerPawn().GetPlayerPawnPosition());
+        SetTarget(GameInstance.Instance.GetPlayerPawn().GetCharacterPosition());
 
         SetFollowTarget2D();
         FollowTarget(0.1f,0.08f);

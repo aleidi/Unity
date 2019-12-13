@@ -19,6 +19,7 @@ public class WeaponSword : WeaponMelee
                 {
                     foreach(Character monster in _mList)
                     {
+                        monster.SetKnockBackDir(m_Owner.GetCharacterForward() * m_Owner.GetVelocity().magnitude);
                         monster.UnderAttack();
                     }
                     

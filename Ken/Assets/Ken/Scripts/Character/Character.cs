@@ -21,6 +21,7 @@ public class Character : Pawn
         public Collider Col;
         public Animator Anim;
         public AnimEvent AnimEvent;
+        public Transform ModelTrans;
     }
 
     protected struct AnimParamId
@@ -40,6 +41,7 @@ public class Character : Pawn
 
     protected bool m_bIsInBattle;
     protected int m_iCurrentJumpTimes = 0;
+    protected Vector3 m_vKnockBackDir;
 
 
     public Character() {}
@@ -50,6 +52,7 @@ public class Character : Pawn
         m_Avatar.Rigid = avatar.transform.GetComponent<Rigidbody>();
         m_Avatar.Col = avatar.transform.GetComponent<Collider>();
         m_Avatar.Anim = avatar.transform.GetComponent<Animator>();
+        m_Avatar.ModelTrans = avatar.transform.GetChild(0);
     }
 
     public override void OnInit()
@@ -66,8 +69,8 @@ public class Character : Pawn
 
     public override void Move(float value)
     {
-        Vector3 _moveVal = Vector3.right * value * m_Attribute.GetMoveSpeed() * m_Attribute.GetMoveSpeedAtten();
-        m_Avatar.Rigid.velocity = new Vector3(_moveVal.x, m_Avatar.Rigid.velocity.y, m_Avatar.Rigid.velocity.z);
+        Vector3 _moveVal = GameInstance.Instance.GetCameraRight() * value * m_Attribute.GetMoveSpeed() * m_Attribute.GetMoveSpeedAtten();
+        m_Avatar.Rigid.velocity = _moveVal;//new Vector3(_moveVal.x, m_Avatar.Rigid.velocity.y, m_Avatar.Rigid.velocity.z);
         SetAnimFloat(GetAnimParamId().Speed, Mathf.Abs(value));
     }
 
@@ -208,21 +211,19 @@ public class Character : Pawn
     }
 
     
-    public Vector3 GetPlayerPawnPosition()
+    public Vector3 GetCharacterPosition()
     {
         return m_Avatar.Trans.position;
     }
 
-    public Vector3 GetPlayerForward()
+    public Vector3 GetCharacterForward()
     {
-        if(m_Avatar.Trans.rotation.y == 0)
-        {
-            return Vector3.right;
-        }
-        else
-        {
-            return Vector3.left;
-        }
+        return m_Avatar.Trans.forward;
+    }
+
+    public Vector3 GetModelForward()
+    {
+        return m_Avatar.ModelTrans.forward;
     }
 
     public void SetCharacterState(ECharState ECharState)
@@ -247,6 +248,7 @@ public class Character : Pawn
         m_Avatar.Col = avatar.transform.GetComponent<Collider>();
         m_Avatar.Anim = avatar.transform.GetComponent<Animator>();
         m_Avatar.AnimEvent = avatar.transform.GetComponent<AnimEvent>();
+        m_Avatar.ModelTrans = avatar.transform.GetChild(0);
     }
 
     public void SetWeapon(WeaponBase weapon)
@@ -307,4 +309,18 @@ public class Character : Pawn
         GetAnimator().speed = theSpeed;
     }
 
+    public virtual void SetKnockBackDir(Vector3 dir)
+    {
+        m_vKnockBackDir = dir;
+    }
+
+    public Vector3 GetVelocity()
+    {
+        return m_Avatar.Rigid.velocity;
+    }
+
+    public Vector3 GetAxis()
+    {
+        return m_Avatar.Trans.position;
+    }
 }

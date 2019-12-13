@@ -26,7 +26,10 @@ public class Skeleton : Character
         {
             SetAnimTrigger(GetAnimParamId().Hited);
         }
+        AttackAnimPause();
+        m_Avatar.Rigid.AddForce(m_vKnockBackDir * 200);
     }
+
 
     protected virtual void CheckCharState()
     {

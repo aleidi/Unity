@@ -38,7 +38,6 @@ public class GameInstance
         m_GameMode.OnUpdate(deltaTime);
 
         FactoryMng.Instance.OnUpdate(deltaTime);
-
     }
 
     public void OnFixedUpdate(float deltaTime)
@@ -85,5 +84,15 @@ public class GameInstance
     public List<Character> GetMonsterList()
     {
         return FactoryMng.Instance.GetMonsterList();
+    }
+
+    public Vector3 GetCameraRight()
+    {
+        return CameraMng.Instance.GetCameraRight();
+    }
+
+    public Vector3 GetCameraForward()
+    {
+        return CameraMng.Instance.GetCameraForward();
     }
 }

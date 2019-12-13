@@ -96,11 +96,11 @@ public class PlayerController : ControllerBase
     {
         if(value > 0)
         {
-            SetPlayerPawnForward(Vector3.forward);
+            SetPlayerPawnForward(GameInstance.Instance.GetCameraForward());
         }
         if(value < 0)
         {
-            SetPlayerPawnForward(Vector3.back);
+            SetPlayerPawnForward(GameInstance.Instance.GetCameraForward() * -1);
         }
         m_PlayerPawn.Move(value);
     }

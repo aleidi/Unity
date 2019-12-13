@@ -45,4 +45,13 @@ public class CameraMng
         return false;
     }
 
+    public Vector3 GetCameraRight()
+    {
+        return m_Camera.GetRight();
+    }
+
+    public Vector3 GetCameraForward()
+    {
+        return m_Camera.GetForward();
+    }
 }

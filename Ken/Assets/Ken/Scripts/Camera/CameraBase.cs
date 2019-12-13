@@ -29,5 +29,15 @@ abstract public class CameraBase
         m_MainCamera.transform.position = Vector3.Lerp(m_MainCamera.transform.position, m_vTarget, 0.5f);
     }
 
+    public Vector3 GetRight()
+    {
+        return Quaternion.AngleAxis(m_MainCamera.transform.rotation.y,Vector3.up) * m_MainCamera.transform.right;
+    }
+
+    public Vector3 GetForward()
+    {
+        return Quaternion.AngleAxis(m_MainCamera.transform.rotation.y, Vector3.up) * m_MainCamera.transform.forward;
+    }
+
 
 }

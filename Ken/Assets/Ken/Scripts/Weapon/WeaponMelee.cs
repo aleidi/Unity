@@ -19,9 +19,9 @@ public class WeaponMelee : WeaponBase
 
         foreach (Character monster in _list)
         {
-            Vector3 _oPos = m_Owner.GetPlayerPawnPosition();
-            Vector3 _mPos = monster.GetPlayerPawnPosition();
-            Vector3 _dir = m_Owner.GetPlayerForward();
+            Vector3 _oPos = m_Owner.GetCharacterPosition();
+            Vector3 _mPos = monster.GetCharacterPosition();
+            Vector3 _dir = m_Owner.GetModelForward();
             if (AttackRoll(_oPos,_mPos,_dir,m_fRange))
             {
                 mList.Add(monster);
@@ -40,8 +40,8 @@ public class WeaponMelee : WeaponBase
 
     protected virtual bool GetAttackee()
     {
-        Vector3 _pPos = GameInstance.Instance.GetPlayerPawn().GetPlayerPawnPosition();
-        Vector3 _oPos = m_Owner.GetPlayerPawnPosition();
+        Vector3 _pPos = GameInstance.Instance.GetPlayerPawn().GetCharacterPosition();
+        Vector3 _oPos = m_Owner.GetCharacterPosition();
 
         if (Mathf.Abs(Vector3.Distance(_pPos, _oPos)) < m_fRange)
         {
@@ -59,6 +59,7 @@ public class WeaponMelee : WeaponBase
     //If distance from v1 to v2 is smaller than maxRange and direction from v1 to v2 is parallel to dir, return true
     protected bool AttackRoll(Vector3 v1, Vector3 v2, Vector3 dir, float maxRange)
     {
+        Debug.Log("v2-v1="+ (v2-v1) + "  dir = " + dir );
         return Vector3.Dot(v2 - v1, dir) > 0 && Vector3.Distance(v1, v2) < maxRange;
     }
 
