@@ -65,12 +65,17 @@ public class Character : Pawn
         m_Avatar.AnimEvent.EventAttack += Attack;
     }
 
+    public override void OnUpdate(float deltaTime)
+    {
+        base.OnUpdate(deltaTime);
+;    }
+
     #region Move mode interface which the derived class probably need to overrdie
 
     public override void Move(float value)
     {
         Vector3 _moveVal = GameInstance.Instance.GetCameraRight() * value * m_Attribute.GetMoveSpeed() * m_Attribute.GetMoveSpeedAtten();
-        m_Avatar.Rigid.velocity = _moveVal;//new Vector3(_moveVal.x, m_Avatar.Rigid.velocity.y, m_Avatar.Rigid.velocity.z);
+        m_Avatar.Rigid.velocity = new Vector3(_moveVal.x, m_Avatar.Rigid.velocity.y, _moveVal.z);
         SetAnimFloat(GetAnimParamId().Speed, Mathf.Abs(value));
     }
 
@@ -81,7 +86,7 @@ public class Character : Pawn
         SetAnimTrigger(GetAnimParamId().Jump);
         GetAnimator().Play("Jump", 0, 0);
         ResetVelocity();
-        m_Avatar.Rigid.AddForce(Vector3.up * m_Attribute.GetJumoForce());
+        m_Avatar.Rigid.AddForce(Vector3.up * m_Attribute.GetJumpForce());
 
         return true;
     }
@@ -323,4 +328,5 @@ public class Character : Pawn
     {
         return m_Avatar.Trans.position;
     }
+
 }

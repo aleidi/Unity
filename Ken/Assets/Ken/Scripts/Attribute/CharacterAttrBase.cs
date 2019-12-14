@@ -55,7 +55,7 @@
         m_fMoveSpeedAtten = value;
     }
 
-    public float GetJumoForce()
+    public float GetJumpForce()
     {
         return m_fJumpForce;
     }

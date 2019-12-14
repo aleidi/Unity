@@ -22,7 +22,7 @@ public class WeaponMelee : WeaponBase
             Vector3 _oPos = m_Owner.GetCharacterPosition();
             Vector3 _mPos = monster.GetCharacterPosition();
             Vector3 _dir = m_Owner.GetModelForward();
-            if (AttackRoll(_oPos,_mPos,_dir,m_fRange))
+            if (AttackRoll(_oPos, _mPos, _dir, 0.8f, m_fRange)) 
             {
                 mList.Add(monster);
             }
@@ -59,7 +59,6 @@ public class WeaponMelee : WeaponBase
     //If distance from v1 to v2 is smaller than maxRange and direction from v1 to v2 is parallel to dir, return true
     protected bool AttackRoll(Vector3 v1, Vector3 v2, Vector3 dir, float maxRange)
     {
-        Debug.Log("v2-v1="+ (v2-v1) + "  dir = " + dir );
         return Vector3.Dot(v2 - v1, dir) > 0 && Vector3.Distance(v1, v2) < maxRange;
     }
 
