@@ -38,9 +38,12 @@ public class Character : Pawn
     protected ECharState m_eCharState;
     protected CharacterAttrBase m_Attribute;
     protected WeaponBase m_Weapon;
+    protected ControllerBase m_Controller;
 
+    protected float m_fMoveValue;
     protected bool m_bIsInBattle;
     protected int m_iCurrentJumpTimes = 0;
+    protected float m_fMoveInertia = 0.4f;
     protected Vector3 m_vKnockBackDir;
 
 
@@ -57,8 +60,6 @@ public class Character : Pawn
 
     public override void OnInit()
     {
-        base.OnInit();
-
         //Set animator parameters string to hash
         SetAnimParaHash();
 
@@ -74,8 +75,23 @@ public class Character : Pawn
 
     public override void Move(float value)
     {
-        Vector3 _moveVal = GameInstance.Instance.GetCameraRight() * value * m_Attribute.GetMoveSpeed() * m_Attribute.GetMoveSpeedAtten();
-        m_Avatar.Rigid.velocity = new Vector3(_moveVal.x, m_Avatar.Rigid.velocity.y, _moveVal.z);
+        Vector3 _moveVal = GameInstance.Instance.GetCameraRight() * MoveCalculate(value) * m_Attribute.MoveSpeed * m_Attribute.MoveSpeedAtten;
+        m_Avatar.Rigid.velocity =  new Vector3(_moveVal.x, m_Avatar.Rigid.velocity.y, _moveVal.z);
+        PlayMoveAnim(value);
+    }
+
+    protected float MoveCalculate(float value)
+    {
+        m_fMoveValue += value * 0.1f;
+        m_fMoveValue = Mathf.Clamp(m_fMoveValue, -1, 1);
+        float _tmp = m_fMoveValue > 0 ? Mathf.Pow(m_fMoveValue, m_fMoveInertia) : Mathf.Pow(m_fMoveValue * -1, m_fMoveInertia) * -1;
+        m_fMoveValue = Mathf.Lerp(m_fMoveValue, 0, 5f * Time.deltaTime);
+        return _tmp;
+
+    }
+
+    protected virtual void PlayMoveAnim(float value)
+    {
         SetAnimFloat(GetAnimParamId().Speed, Mathf.Abs(value));
     }
 
@@ -85,8 +101,10 @@ public class Character : Pawn
 
         SetAnimTrigger(GetAnimParamId().Jump);
         GetAnimator().Play("Jump", 0, 0);
-        ResetVelocity();
-        m_Avatar.Rigid.AddForce(Vector3.up * m_Attribute.GetJumpForce());
+
+        //Reset the up velocity
+        m_Avatar.Rigid.velocity = new Vector3(m_Avatar.Rigid.velocity.x, 0, m_Avatar.Rigid.velocity.z);
+        m_Avatar.Rigid.AddForce(Vector3.up * m_Attribute.JumpForce);
 
         return true;
     }
@@ -110,7 +128,8 @@ public class Character : Pawn
 
     public virtual void UnderAttack()
     {
-        Debug.Log(m_Avatar.Trans.name + "is under attack!");
+        SetAnimTrigger(GetAnimParamId().Hited);
+        m_Avatar.Rigid.AddForce(m_vKnockBackDir * 200);
     }
 
     #endregion
@@ -118,11 +137,6 @@ public class Character : Pawn
     public Vector3 GetAvatarFootPosition()
     {
         return m_Avatar.Col.bounds.min;
-    }
-
-    protected void ResetVelocity()
-    {
-        m_Avatar.Rigid.velocity = Vector3.zero;
     }
 
     protected void SetAnimInt(int id, int value)
@@ -273,7 +287,7 @@ public class Character : Pawn
 
     public int GetJumpTimes()
     {
-        return m_Attribute.GetJumpTimes();
+        return m_Attribute.JumpTimes;
     }
 
     public int GetCurrentJumpTimes()
@@ -297,7 +311,7 @@ public class Character : Pawn
 
     }
 
-    public void AttackAnimPause()
+    public virtual void AttackAnimPause()
     {
         AnimPauseForSeconds(0.07f);
     }
@@ -324,9 +338,33 @@ public class Character : Pawn
         return m_Avatar.Rigid.velocity;
     }
 
+    public void ResetVelocity()
+    {
+        m_Avatar.Rigid.velocity = Vector3.zero;
+    }
+
     public Vector3 GetAxis()
     {
         return m_Avatar.Trans.position;
     }
 
+    public void SetController(ControllerBase controller)
+    {
+        if(m_Controller != null)
+        {
+            Debug.Log("Controller is already set");
+            return;
+        }
+        m_Controller = controller;
+    }
+
+    public ControllerBase GetController()
+    {
+        return m_Controller;
+    }
+
+    public CharacterAttrBase GetAttribute()
+    {
+        return m_Attribute;
+    }
 }

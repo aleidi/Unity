@@ -5,6 +5,7 @@
         theBuilder.LoadAsset();
         theBuilder.AddWeapon();
         theBuilder.SetCharacterAttr();
+        theBuilder.SetController();
         theBuilder.AddCharacterToList();
     }
 }

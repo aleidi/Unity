@@ -16,37 +16,46 @@ public class FactoryMng
         }
     }
 
-    public void OnInit()
+    public FactoryMng()
     {
         m_CharacterFactory = new CharacterFactory();
         m_AssetFactory = new AssetFactory();
+        m_EnemyList = new List<Character>();
+    }
 
-        m_MonsterList = new List<Character>();
+    public void OnInit()
+    {
+        foreach (Character enemy in m_EnemyList)
+        {
+            enemy.GetController().OnInit();
+            enemy.OnInit();
+        }
     }
 
     public void OnUpdate(float deltaTime)
     {
-        foreach(Character monster in m_MonsterList)
+        foreach(Character enemy in m_EnemyList)
         {
-            monster.OnUpdate(deltaTime);
+            enemy.GetController().OnUpdate(deltaTime);
+            enemy.OnUpdate(deltaTime);
         }
     }
 
-    private List<Character> m_MonsterList;
+    private List<Character> m_EnemyList;
     private CharacterFactory m_CharacterFactory;
     public CharacterFactory GetCharacterFactory()
     {
         return m_CharacterFactory;
     }
 
-    public void AddMonsterToList(Character character)
+    public void AddEnemyToList(Character character)
     {
-        m_MonsterList.Add(character);
+        m_EnemyList.Add(character);
     }
 
-    public List<Character> GetMonsterList()
+    public List<Character> GetEnemyList()
     {
-        return m_MonsterList;
+        return m_EnemyList;
     }
 
     private AssetFactory m_AssetFactory;

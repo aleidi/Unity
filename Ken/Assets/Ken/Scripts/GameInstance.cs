@@ -29,6 +29,7 @@ public class GameInstance
 
         CameraMng.Instance.OnInit();
 
+        FactoryMng.Instance.OnInit();
     }
 
     public void OnUpdate(float deltaTime)
@@ -81,9 +82,9 @@ public class GameInstance
         return m_GameMode.GetController();
     }
 
-    public List<Character> GetMonsterList()
+    public List<Character> GetEnemyList()
     {
-        return FactoryMng.Instance.GetMonsterList();
+        return FactoryMng.Instance.GetEnemyList();
     }
 
     public Vector3 GetCameraRight()

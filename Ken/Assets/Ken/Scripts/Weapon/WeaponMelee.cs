@@ -15,16 +15,16 @@ public class WeaponMelee : WeaponBase
     {
         mList = new List<Character>();
 
-        List<Character> _list = GameInstance.Instance.GetMonsterList();
+        List<Character> _list = GameInstance.Instance.GetEnemyList();
 
-        foreach (Character monster in _list)
+        foreach (Character enemy in _list)
         {
             Vector3 _oPos = m_Owner.GetCharacterPosition();
-            Vector3 _mPos = monster.GetCharacterPosition();
+            Vector3 _mPos = enemy.GetCharacterPosition();
             Vector3 _dir = m_Owner.GetModelForward();
-            if (AttackRoll(_oPos, _mPos, _dir, 0.8f, m_fRange)) 
+            if (AttackRoll(_oPos, _mPos, _dir, 0.8f, m_Owner.GetAttribute().AttackRange)) 
             {
-                mList.Add(monster);
+                mList.Add(enemy);
             }
         }
 
@@ -40,10 +40,10 @@ public class WeaponMelee : WeaponBase
 
     protected virtual bool GetAttackee()
     {
-        Vector3 _pPos = GameInstance.Instance.GetPlayerPawn().GetCharacterPosition();
         Vector3 _oPos = m_Owner.GetCharacterPosition();
-
-        if (Mathf.Abs(Vector3.Distance(_pPos, _oPos)) < m_fRange)
+        Vector3 _pPos = GameInstance.Instance.GetPlayerPawn().GetCharacterPosition();
+        Vector3 _dir = m_Owner.GetModelForward();
+        if (AttackRoll(_oPos, _pPos, _dir, 0.2f, m_Owner.GetAttribute().AttackRange))
         {
             return true;
         }

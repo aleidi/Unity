@@ -19,4 +19,37 @@ public class AIStateMachine
         state.SetStateMachine(this);
         m_States[state.StateType] = state;
     }
+
+    public AIStateBase Transition(int t)
+    {
+        AIStateBase s;
+        m_States.TryGetValue(t, out s);
+        return s;
+    }
+
+    public void SetDefualtState(int t)
+    {
+        if(m_States.TryGetValue(t, out m_CurrentState))
+        {
+            m_CurrentState.Enter();
+        }
+    }
+
+    public void OnUpdate(float deltaTime)
+    {
+        if(null == m_CurrentState)
+        {
+            return;
+        }
+        AIStateBase _nextState = m_CurrentState.Execute();
+        if(_nextState != m_CurrentState)
+        {
+            m_CurrentState.Exit();
+            m_CurrentState = _nextState;
+            if(m_CurrentState != null)
+            {
+                m_CurrentState.Enter();
+            }
+        }
+    }
 }

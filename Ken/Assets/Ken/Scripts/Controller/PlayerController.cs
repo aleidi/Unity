@@ -9,6 +9,13 @@ public class PlayerController : ControllerBase
     protected int m_iCurrentJumpTimes;
     protected bool m_bInputEnabled;
 
+    public PlayerController() { }
+
+    public PlayerController(Character pawn)
+    {
+        m_ContolleredPawn = pawn;
+    }
+
     public override void OnInit()
     {
         base.OnInit();
@@ -71,7 +78,7 @@ public class PlayerController : ControllerBase
         }
 
         DeactivateInput();
-        m_PlayerPawn.PlayAttackAnim();
+        m_ContolleredPawn.PlayAttackAnim();
         ActivateInput();
 
     }
@@ -87,14 +94,14 @@ public class PlayerController : ControllerBase
         DeactivateInput();
         if(CanJump())
         {
-            m_PlayerPawn.Jump();
+            m_ContolleredPawn.Jump();
         }
         ActivateInput();
     }
 
     protected void DoMove(float value)
     {
-        if(value > 0)
+        if (value > 0)
         {
             SetPlayerPawnForward(GameInstance.Instance.GetCameraForward());
         }
@@ -102,13 +109,13 @@ public class PlayerController : ControllerBase
         {
             SetPlayerPawnForward(GameInstance.Instance.GetCameraForward() * -1);
         }
-        m_PlayerPawn.Move(value);
+        m_ContolleredPawn.Move(value);
     }
 
     protected bool CanJump()
     {
-        if (m_PlayerPawn.GetCurrentJumpTimes() >= m_PlayerPawn.GetJumpTimes() && 
-            m_PlayerPawn.GetCharacterState() != Character.ECharState.Attacking)
+        if (m_ContolleredPawn.GetCurrentJumpTimes() >= m_ContolleredPawn.GetJumpTimes() && 
+            m_ContolleredPawn.GetCharacterState() != Character.ECharState.Attacking)
         {
             return false;
         }
@@ -116,12 +123,12 @@ public class PlayerController : ControllerBase
         return true;
     }
 
-    protected void ActivateInput()
+    public void ActivateInput()
     {
         m_bInputEnabled = true;
     }
 
-    protected void DeactivateInput()
+    public void DeactivateInput()
     {
         m_bInputEnabled = false;
     }
@@ -134,22 +141,22 @@ public class PlayerController : ControllerBase
      protected override void FallOnGround()
     {
         base.FallOnGround();
-        m_PlayerPawn.FallOnGround();
+        m_ContolleredPawn.FallOnGround();
     }
 
     protected override void JumpIntoAir()
     {
         base.JumpIntoAir();
-        m_PlayerPawn.JumpIntoAir();
+        m_ContolleredPawn.JumpIntoAir();
     }
 
     protected void DoShiftIdleMode()
     {
-        m_PlayerPawn.ShiftIdleMode();
+        m_ContolleredPawn.ShiftIdleMode();
     }
 
     protected void SetPlayerPawnForward(Vector3 value)
     {
-        m_PlayerPawn.SetForward(value);
+        m_ContolleredPawn.SetForward(value);
     }
 }

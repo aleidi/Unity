@@ -20,22 +20,27 @@ public class PlayerBuilder : CharacterBuilderBase
         GameObject _model = FactoryMng.Instance.GetAssetFactory().LoadModel("PlayerPawn");
 
         //Set the spawn position
-        _model.transform.position = m_BuildParam.m_vSpawnPos;  
-        m_BuildParam.m_Character.SetAvatar(GameTools.CreateGameObject(_model, _model.transform.position, Quaternion.identity));
+        _model.transform.position = m_BuildParam.SpawnPos;  
+        m_BuildParam.Character.SetAvatar(GameTools.CreateGameObject(_model, _model.transform.position, Quaternion.identity));
     }
 
     public override void AddWeapon()
     {
-        m_BuildParam.m_Character.SetWeapon(new WeaponSword());
-        m_BuildParam.m_Character.GetWeapon().SetOwner(m_BuildParam.m_Character);
+        m_BuildParam.Character.SetWeapon(new PlayerWeaponSword());
+        m_BuildParam.Character.GetWeapon().SetOwner(m_BuildParam.Character);
 ;    }
 
     public override void SetCharacterAttr()
     {
-        CharacterAttrBase _attribtue = new PlayerAttribute(100, 100, 10,
+        CharacterAttrBase _attribtue = new PlayerAttribute(100, 100, 1.2f,
           8f,0.2f, 250, 2,
           "Player");
-        m_BuildParam.m_Character.SetAttribute(_attribtue);
+        m_BuildParam.Character.SetAttribute(_attribtue);
+    }
+
+    public override void SetController()
+    {
+        m_BuildParam.Character.SetController(new PlayerController(m_BuildParam.Character));
     }
 
     public override void AddCharacterToList()

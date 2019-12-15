@@ -17,7 +17,7 @@ public class CharacterFactory : CharacterFactoryBase
         switch(eChar)
         {
             case EPlayer.Player:
-                _playerParam.m_Character = new Character();
+                _playerParam.Character = new Character();
                 break;
             default:
                 Debug.LogError("CreatePlayer can't create player!");
@@ -25,8 +25,8 @@ public class CharacterFactory : CharacterFactoryBase
         }
 
         //Set player parameter
-        _playerParam.m_eWeapon = eWeapon;
-        _playerParam.m_vSpawnPos = spawnPosition;
+        _playerParam.EWeapon = eWeapon;
+        _playerParam.SpawnPos = spawnPosition;
 
         //Create the player builder and set the parameter
         PlayerBuilder _playerBuilder = new PlayerBuilder();
@@ -36,18 +36,18 @@ public class CharacterFactory : CharacterFactoryBase
         m_BuilderDirector.Construct(_playerBuilder);
 
 
-        return _playerParam.m_Character; 
+        return _playerParam.Character; 
     }
 
     public override Character CreateMonster(EMonster eMonster, EWeapon eWeapon, Vector3 spawnPosition)
     {
         //Set monster parameter
-        MonsterBuildParam _monsterParam = new MonsterBuildParam();
+        EnemyBuildParam _monsterParam = new EnemyBuildParam();
 
         switch(eMonster)
         {
             case EMonster.Skeleton:
-                _monsterParam.m_Character = new Skeleton();
+                _monsterParam.Character = new Skeleton();
                 break;
             default:
                 Debug.LogError("CreateMonster can't create monster");
@@ -55,16 +55,16 @@ public class CharacterFactory : CharacterFactoryBase
         }
 
         //Set monster parameter
-        _monsterParam.m_eWeapon = eWeapon;
-        _monsterParam.m_vSpawnPos = spawnPosition;
+        _monsterParam.EWeapon = eWeapon;
+        _monsterParam.SpawnPos = spawnPosition;
 
         //Create the monster builder and set the parameter
-        MonsterBuilder _monsterBuilder = new MonsterBuilder();
+        EnemyBuilder _monsterBuilder = new EnemyBuilder();
         _monsterBuilder.SetBuildParam(_monsterParam);
 
         //Produce
         m_BuilderDirector.Construct(_monsterBuilder);
 
-        return _monsterParam.m_Character;
+        return _monsterParam.Character;
     }
 }

@@ -2,9 +2,10 @@
 
 abstract public class CharacterBuildParamBase
 {
-    public Character m_Character;
-    public EWeapon m_eWeapon;
-    public Vector3 m_vSpawnPos;
+    public Character Character { get; set; }
+    public EWeapon EWeapon { get; set; }
+    public Vector3 SpawnPos { get; set; }
+    public AIController Controller { get; set; }
 
 }
 
@@ -21,6 +22,9 @@ abstract public class CharacterBuilderBase
 
     //Set character attributes
     abstract public void SetCharacterAttr();
+
+    //Set controller
+    abstract public void SetController();
 
     //Add character to list
     abstract public void AddCharacterToList();

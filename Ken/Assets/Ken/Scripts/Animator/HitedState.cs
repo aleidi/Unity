@@ -4,23 +4,27 @@ using UnityEngine;
 
 public class HitedState : StateMachineBehaviour
 {
+    private float m_fSpeedAtten;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        GameInstance.Instance.GetPlayerPawn().SetCharacterState(Character.ECharState.Hited);
+        Character _char = GameInstance.Instance.GetPlayerPawn();
+        _char.SetCharacterState(Character.ECharState.Hited);
+        m_fSpeedAtten = _char.GetAttribute().MoveSpeedAtten;
+        _char.SetMoveSpeedAtten(0);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        Debug.Log(animator.avatar.name + ": " + GameInstance.Instance.GetPlayerPawn().GetCharacterState());
-    }
+    //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //    Debug.Log(animator.avatar.name + ": " + GameInstance.Instance.GetPlayerPawn().GetCharacterState());
+    //}
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        GameInstance.Instance.GetPlayerPawn().SetMoveSpeedAtten(m_fSpeedAtten);
+    }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

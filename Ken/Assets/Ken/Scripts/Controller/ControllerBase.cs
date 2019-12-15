@@ -10,13 +10,13 @@ abstract public class ControllerBase
         Air
     }
 
-    protected Character m_PlayerPawn;
+    protected Character m_ContolleredPawn;
     protected MovementState m_eMovementState = MovementState.Gound;
     protected MovementState m_eLastMovementState;
 
     public ControllerBase()
     {
-        m_PlayerPawn = null;
+        m_ContolleredPawn = null;
     }
 
     public virtual void OnInit() { }
@@ -51,14 +51,19 @@ abstract public class ControllerBase
 
     protected virtual void JumpIntoAir() { }
 
-    public void SetPlayerPawn(Character player)
+    public void SetControlledPawn(Character pawn)
     {
-        m_PlayerPawn = player;
+        if(m_ContolleredPawn != null)
+        {
+            Debug.Log("Controlled pawn is already set");
+            return;
+        }
+        m_ContolleredPawn = pawn;
     }
 
     public bool IsOwnedPlayerPawn()
     {
-        if(null == m_PlayerPawn)
+        if(null == m_ContolleredPawn)
         {
             Debug.LogError("PlayerPawn is not existed!");
             return false;
@@ -72,7 +77,7 @@ abstract public class ControllerBase
     public bool IsOnGround()
     {
         float _offset = 1;
-        Vector3 _origion = m_PlayerPawn.GetAvatarFootPosition() + Vector3.up * _offset;
+        Vector3 _origion = m_ContolleredPawn.GetAvatarFootPosition() + Vector3.up * _offset;
         Ray _ray = new Ray(_origion, Vector3.down);
         RaycastHit _hit;
         LayerMask _layerMask = LayerMask.NameToLayer("Ground");
@@ -98,7 +103,7 @@ abstract public class ControllerBase
     {
         if(IsOwnedPlayerPawn())
         {
-            return m_PlayerPawn;
+            return m_ContolleredPawn;
         }
         return null;
     }

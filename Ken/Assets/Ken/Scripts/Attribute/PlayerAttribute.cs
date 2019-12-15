@@ -3,19 +3,19 @@
     public PlayerAttribute() { }
 
     public PlayerAttribute(
-        int maxHp, int maxEndurance, float range,
+        int maxHp, int maxEndurance, float attackRange,
         float moveSpeed, float moveSpeedAtten, float jumpForce, int jumpTimes,
         string name)
     {
-        m_iMaxHp = maxHp;
-        m_iNowHp = m_iMaxHp;
-        m_iMaxEndurance = maxEndurance;
-        m_iNowEndurance = m_iMaxEndurance;
-        m_fRange = range;
-        m_fMoveSpeed = moveSpeed;
-        m_fMoveSpeedAtten = moveSpeedAtten;
-        m_fJumpForce = jumpForce;
-        m_iJumpTimes = jumpTimes;
-        m_AttrName = name;
+        MaxHp = maxHp;
+        m_iNowHp = MaxHp;
+        MaxEndurance = maxEndurance;
+        m_iNowEndurance = MaxEndurance;
+        AttackRange = attackRange;
+        MoveSpeed = moveSpeed;
+        MoveSpeedAtten = moveSpeedAtten;
+        JumpForce = jumpForce;
+        JumpTimes = jumpTimes;
+        AttrName = name;
     }
 }

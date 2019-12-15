@@ -13,7 +13,6 @@ public class GameModeBase
     {
         m_PlayerPawn = playerPawn;
         m_Controller = controller;
-        m_Controller.SetPlayerPawn(m_PlayerPawn);
     }
 
     public virtual void OnInit()

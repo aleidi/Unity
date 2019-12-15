@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Skeleton : Character
 {
+    protected Vector3 m_vSpawnPos;
+
     public Skeleton() { SetAnimParaHash(); }
 
     public Skeleton(GameObject avatar) : base(avatar) { }
@@ -11,6 +13,7 @@ public class Skeleton : Character
     public override void OnInit()
     {
         base.OnInit();
+
     }
 
     public override void OnUpdate(float deltaTime)
@@ -25,6 +28,7 @@ public class Skeleton : Character
         if(GetCharacterState() != ECharState.Hited)
         {
             SetAnimTrigger(GetAnimParamId().Hited);
+            GetAnimator().Play("Hited",0,0);
         }
         AttackAnimPause();
         m_Avatar.Rigid.AddForce(m_vKnockBackDir * 200);
@@ -72,5 +76,18 @@ public class Skeleton : Character
         }
     }
 
+    public void SetSpawnPosition(Vector3 spawnPos)
+    {
+        m_vSpawnPos = spawnPos;
+    }
 
+    public Vector3 GetSpawnPosition()
+    {
+        return m_vSpawnPos;
+    }
+
+    public override void AttackAnimPause()
+    {
+        AnimPauseForSeconds(0.1f);
+    }
 }

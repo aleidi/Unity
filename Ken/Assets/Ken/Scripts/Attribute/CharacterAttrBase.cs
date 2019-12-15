@@ -1,20 +1,20 @@
 ﻿abstract public class CharacterAttrBase
 {
-    protected int m_iMaxHp;
+    public int MaxHp { get; protected set; }
     protected int m_iNowHp;
 
     //Attack Attribute
-    protected int m_iMaxEndurance;
+    public int MaxEndurance { get; protected set; }
     protected int m_iNowEndurance;
-    protected float m_fRange;
+    public float AttackRange { get; protected set; }
 
     //Move Attributes
-    protected float m_fMoveSpeed;
-    protected float m_fMoveSpeedAtten;
-    protected float m_fJumpForce;
-    protected int m_iJumpTimes;
+    public float MoveSpeed { get; protected set; }
+    public float MoveSpeedAtten { get; protected set; }
+    public float JumpForce { get; protected set; }
+    public int JumpTimes { get; protected set; }
 
-    protected string m_AttrName;
+    public string AttrName { get; protected set; }
 
     protected AttributeStrategyBase m_AttrStrategy;
 
@@ -30,44 +30,14 @@
         m_AttrStrategy.InitAttr(this);
     }
 
-    public int GetMaxHp()
-    {
-        return m_iMaxHp;
-    }
-
     public int GetNowHp()
     {
         return m_iNowHp;
     }
 
-    public float GetMoveSpeed()
-    {
-        return m_fMoveSpeed;
-    }
-
-    public float GetMoveSpeedAtten()
-    {
-        return m_fMoveSpeedAtten;
-    }
-
     public void SetMoveSpeedAtten(float value)
     {
-        m_fMoveSpeedAtten = value;
-    }
-
-    public float GetJumpForce()
-    {
-        return m_fJumpForce;
-    }
-
-    public int GetJumpTimes()
-    {
-        return m_iJumpTimes;
-    }
-
-    public float GetRange()
-    {
-        return m_fRange;
+        MoveSpeedAtten = value;
     }
 
 }
