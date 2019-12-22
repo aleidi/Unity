@@ -32,7 +32,7 @@ public class PlayerBuilder : CharacterBuilderBase
 
     public override void SetCharacterAttr()
     {
-        CharacterAttrBase _attribtue = new PlayerAttribute(100, 100, 1.2f,
+        CharacterAttrBase _attribtue = new PlayerAttribute(100, 100, 1.5f,
           8f,0.2f, 250, 2,
           "Player");
         m_BuildParam.Character.SetAttribute(_attribtue);

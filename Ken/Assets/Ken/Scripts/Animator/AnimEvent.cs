@@ -6,6 +6,10 @@ public class AnimEvent : MonoBehaviour
 {
     public delegate void Attack();
     public event Attack EventAttack;
+    public delegate void Counter();
+    public event Counter EventCounter;
+    public delegate void PerfectGuard();
+    public event PerfectGuard EventPerfectGuard;
     private Animator m_Anim;
 
     void Awake()
@@ -22,4 +26,15 @@ public class AnimEvent : MonoBehaviour
     {
         EventAttack.Invoke();
     }
+
+    void OnCounter()
+    {
+        EventCounter.Invoke();
+    }
+
+    void SetPerfectGuard()
+    {
+        EventPerfectGuard.Invoke();
+    }
+
 }

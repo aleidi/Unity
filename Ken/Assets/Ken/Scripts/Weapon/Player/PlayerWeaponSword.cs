@@ -21,7 +21,7 @@ public class PlayerWeaponSword : PlayerWeaponMelee
                 enemy.UnderAttack();
             }
 
-            m_Owner.AttackAnimPause();
+            m_Owner.AttackAnimPause(0.07f);
         }
     }
 

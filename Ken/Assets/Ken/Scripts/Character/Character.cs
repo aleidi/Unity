@@ -11,7 +11,9 @@ public class Character : Pawn
         Attacking,
         Moving,
         Jumping,
-        Hited
+        Hited,
+        Defence,
+        Counter
     }
 
     protected struct Avatar
@@ -27,10 +29,12 @@ public class Character : Pawn
     protected struct AnimParamId
     {
         public int IsInBattle;
+        public int IsInDefence;
         public int Attack;
         public int Jump;
         public int Hited;
         public int Speed;
+        public int PlaySpeed;
     }
 
     protected Avatar m_Avatar;
@@ -44,7 +48,10 @@ public class Character : Pawn
     protected bool m_bIsInBattle;
     protected int m_iCurrentJumpTimes = 0;
     protected float m_fMoveInertia = 0.4f;
+    protected float m_fPGDifficulity = 0.1f;
     protected Vector3 m_vKnockBackDir;
+    protected bool m_bIsPerfectGuard;
+    protected bool m_bIsCounter;
 
 
     public Character() {}
@@ -63,7 +70,9 @@ public class Character : Pawn
         //Set animator parameters string to hash
         SetAnimParaHash();
 
-        m_Avatar.AnimEvent.EventAttack += Attack;
+        m_Avatar.AnimEvent.EventAttack += OnAttack;
+        m_Avatar.AnimEvent.EventCounter += OnCounter;
+        m_Avatar.AnimEvent.EventPerfectGuard += SetPerfectGuard;
     }
 
     public override void OnUpdate(float deltaTime)
@@ -90,11 +99,6 @@ public class Character : Pawn
 
     }
 
-    protected virtual void PlayMoveAnim(float value)
-    {
-        SetAnimFloat(GetAnimParamId().Speed, Mathf.Abs(value));
-    }
-
     public virtual bool Jump()
     {
         m_iCurrentJumpTimes++;
@@ -109,12 +113,7 @@ public class Character : Pawn
         return true;
     }
 
-    public virtual void PlayAttackAnim()
-    {
-        SetAnimTrigger(GetAnimParamId().Attack);
-    }
-
-    protected virtual void Attack()
+    protected virtual void OnAttack()
     {
         m_Weapon.WeaponAttack();
     }
@@ -132,7 +131,55 @@ public class Character : Pawn
         m_Avatar.Rigid.AddForce(m_vKnockBackDir * 200);
     }
 
+    public virtual void Defense()
+    {
+        m_Avatar.Rigid.AddForce(m_vKnockBackDir * 100);
+    }
+
+    public virtual void OnCounter()
+    {
+        m_bIsCounter = true;
+        GameTools.Instance.TimerForSeconds(m_fPGDifficulity, () =>
+         {
+             Debug.Log("counter after timer");
+             m_bIsCounter = false;
+         });
+    }
+
     #endregion
+
+    //Action Anim--------------------------------------
+
+    public void PlayMoveAnim(float value)
+    {
+        SetAnimFloat(GetAnimParamId().Speed, Mathf.Abs(value));
+    }
+
+    public virtual void PlayAttackAnim()
+    {
+        SetAnimTrigger(GetAnimParamId().Attack);
+    }
+
+    public void PlayDefenceAnim(bool value)
+    {
+        SetAnimBool(GetAnimParamId().IsInDefence, value);
+    }
+
+    public void PlayPerfectGuardAnim()
+    {
+        GetAnimator().Play("PerfectGuard", 0, 0);
+    }
+
+    //Action Anim--------------------------------------
+
+    public void SetPerfectGuard()
+    {
+        m_bIsPerfectGuard = true;
+        GameTools.Instance.TimerForSeconds(m_fPGDifficulity, () =>
+        {
+            m_bIsPerfectGuard = false;
+        });
+    }
 
     public Vector3 GetAvatarFootPosition()
     {
@@ -202,26 +249,17 @@ public class Character : Pawn
     protected void SetAnimParaHash()
     {
         m_AnimParamId.IsInBattle = GetAnimParaHash("IsInBattle");
+        m_AnimParamId.IsInDefence = GetAnimParaHash("IsInDefence");
         m_AnimParamId.Attack = GetAnimParaHash("Attack");
         m_AnimParamId.Jump = GetAnimParaHash("Jump");
         m_AnimParamId.Hited = GetAnimParaHash("Hited");
         m_AnimParamId.Speed = GetAnimParaHash("Speed");
+        m_AnimParamId.PlaySpeed = GetAnimParaHash("PlaySpeed");
     }
 
     protected AnimParamId GetAnimParamId()
     {
         return m_AnimParamId;
-    }
-
-
-    public void ResetAttackTrigger()
-    {
-        ResetAnimTrigger(GetAnimParamId().Attack);
-    }
-
-    public void ResetJumpTrigger()
-    {
-        ResetAnimTrigger(GetAnimParamId().Jump);
     }
 
     public void SetForward(Vector3 value)
@@ -311,9 +349,9 @@ public class Character : Pawn
 
     }
 
-    public virtual void AttackAnimPause()
+    public virtual void AttackAnimPause(float value)
     {
-        AnimPauseForSeconds(0.07f);
+        AnimPauseForSeconds(value);
     }
     
     protected void AnimPauseForSeconds(float time)
@@ -367,4 +405,20 @@ public class Character : Pawn
     {
         return m_Attribute;
     }
+
+    public bool IsPerfectGuard()
+    {
+        return m_bIsPerfectGuard;
+    }
+
+    public void SetAnimPlaySpeed(float value)
+    {
+        SetAnimFloat("PlaySpeed", value);
+    }
+
+    public bool IsCounter()
+    {
+        return m_bIsCounter;
+    }
+
 }

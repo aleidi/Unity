@@ -23,6 +23,12 @@ public class Skeleton : Character
         CheckCharState();
     }
 
+    public override void PlayAttackAnim()
+    {
+        SetAnimFloat(GetAnimParamId().PlaySpeed, 1);
+        SetAnimTrigger(GetAnimParamId().Attack);
+    }
+
     public override void UnderAttack()
     {
         if(GetCharacterState() != ECharState.Hited)
@@ -30,7 +36,7 @@ public class Skeleton : Character
             SetAnimTrigger(GetAnimParamId().Hited);
             GetAnimator().Play("Hited",0,0);
         }
-        AttackAnimPause();
+        AttackAnimPause(0.1f);
         m_Avatar.Rigid.AddForce(m_vKnockBackDir * 200);
     }
 
@@ -86,8 +92,8 @@ public class Skeleton : Character
         return m_vSpawnPos;
     }
 
-    public override void AttackAnimPause()
+    public override void AttackAnimPause(float value)
     {
-        AnimPauseForSeconds(0.1f);
+        AnimPauseForSeconds(value);
     }
 }

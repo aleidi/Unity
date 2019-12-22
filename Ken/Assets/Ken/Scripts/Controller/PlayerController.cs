@@ -64,6 +64,9 @@ public class PlayerController : ControllerBase
         BindButtonAction(0, ButtonBase.ButtonState.ButtonDown, DoAttack);
         BindButtonAction(1, ButtonBase.ButtonState.ButtonDown, DoJump);
         BindButtonAction(2, ButtonBase.ButtonState.ButtonDown, DoShiftIdleMode);
+        BindButtonAction(3, ButtonBase.ButtonState.ButtonDown, DoDefence);
+        BindButtonAction(3, ButtonBase.ButtonState.ButtonUp, UndoDefence);
+
         //0 delegate Joystick0
         BindAxis(0, DoMove);
     }
@@ -153,6 +156,23 @@ public class PlayerController : ControllerBase
     protected void DoShiftIdleMode()
     {
         m_ContolleredPawn.ShiftIdleMode();
+    }
+
+    protected void DoDefence()
+    {
+        //Set defense
+        m_ContolleredPawn.PlayDefenceAnim(true);
+
+        ////Set perfect guard bool true
+        //if (m_ContolleredPawn.GetCharacterState() == Character.ECharState.IdleInBattle)
+        //{
+        //    m_ContolleredPawn.SetPerfectGuard();
+        //}
+    }
+
+    protected void UndoDefence()
+    {
+        m_ContolleredPawn.PlayDefenceAnim(false);
     }
 
     protected void SetPlayerPawnForward(Vector3 value)

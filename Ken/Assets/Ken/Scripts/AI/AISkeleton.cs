@@ -29,12 +29,12 @@ public class AISkeleton : AIStateBase
             m_fAttackRange = (Agent as Skeleton).GetAttribute().AttackRange;
             m_fGuardRange = ((Agent as Skeleton).GetAttribute() as EnemyAttribute).GuardRange;
             m_fInterval = 2;
-            Debug.Log("SkeletonAI enter idle mode");
+           // Debug.Log("SkeletonAI enter idle mode");
         }
 
         public override void Exit()
         {
-            Debug.Log("SkeletonAI exit idle mode");
+            //Debug.Log("SkeletonAI exit idle mode");
         }
 
         public override AIStateBase Execute()
@@ -73,12 +73,12 @@ public class AISkeleton : AIStateBase
         {
             m_fAttackRange = (Agent as Skeleton).GetAttribute().AttackRange;
             m_fGuardRange = ((Agent as Skeleton).GetAttribute() as EnemyAttribute).GuardRange;
-            Debug.Log("SkeletonAI enter Chase mode");
+           // Debug.Log("SkeletonAI enter Chase mode");
         }
 
         public override void Exit()
         {
-            Debug.Log("SkeletonAI exit Chase mode");
+           // Debug.Log("SkeletonAI exit Chase mode");
         }
 
         public override AIStateBase Execute()
@@ -113,12 +113,12 @@ public class AISkeleton : AIStateBase
         {
             m_fAttackRange = (Agent as Skeleton).GetAttribute().AttackRange;
             m_fGuardRange = ((Agent as Skeleton).GetAttribute() as EnemyAttribute).GuardRange;
-            Debug.Log("SkeletonAI enter Attack mode");
+           // Debug.Log("SkeletonAI enter Attack mode");
         }
 
         public override void Exit()
         {
-            Debug.Log("SkeletonAI exit Attack mode");
+          //  Debug.Log("SkeletonAI exit Attack mode");
         }
 
         public override AIStateBase Execute()
@@ -135,7 +135,6 @@ public class AISkeleton : AIStateBase
             float _dis = Vector3.Distance(_playerPawn.GetCharacterPosition(), _sk.GetCharacterPosition());
             if(_dis > m_fGuardRange)
             {
-                Debug.Log("Idle ids :" + m_fGuardRange);
                 return m_Machine.Transition((int)EStateType.Idle);
             }
 

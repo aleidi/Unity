@@ -22,7 +22,7 @@ public class Camera2D : CameraBase
     {
        base.OnInit();
 
-        SetLongitudinalDistanceToTarget(6);
+        SetLongitudinalDistanceToTarget(5);
         SetVerticalDistanceToTarget(2);
 
         SetFollowTarget2D();

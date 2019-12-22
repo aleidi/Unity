@@ -37,6 +37,6 @@ public class GameLoop : MonoBehaviour
         GameInstance.Instance.CreateGameMdoe(_player.GetController() as PlayerController, _player);
 
         //Set the button numbers
-        InputMng.Instance.SetButtonAmount(3);     
+        InputMng.Instance.SetButtonAmount(4);     
     }
 }
