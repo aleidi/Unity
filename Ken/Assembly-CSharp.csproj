@@ -76,6 +76,7 @@
     <Compile Include="Assets\Ken\Scripts\Animator\MoveState.cs" />
     <Compile Include="Assets\Ken\Scripts\Animator\PerfectGuardState.cs" />
     <Compile Include="Assets\Ken\Scripts\Animator\ResetAttackTrigger.cs" />
+    <Compile Include="Assets\Ken\Scripts\Animator\ResetHitedTrigger.cs" />
     <Compile Include="Assets\Ken\Scripts\Animator\ResetJumpTrigger.cs" />
     <Compile Include="Assets\Ken\Scripts\Attribute\CharacterAttrBase.cs" />
     <Compile Include="Assets\Ken\Scripts\Attribute\EnemyAttribute.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Assets\Ken\Scripts\Character\Actor.cs" />
     <Compile Include="Assets\Ken\Scripts\Character\Character.cs" />
     <Compile Include="Assets\Ken\Scripts\Character\Pawn.cs" />
+    <Compile Include="Assets\Ken\Scripts\Character\Player.cs" />
     <Compile Include="Assets\Ken\Scripts\Character\Skeleton.cs" />
     <Compile Include="Assets\Ken\Scripts\Controller\AIController.cs" />
     <Compile Include="Assets\Ken\Scripts\Controller\ControllerBase.cs" />
@@ -110,6 +112,10 @@
     <Compile Include="Assets\Ken\Scripts\Level\LevelBase.cs" />
     <Compile Include="Assets\Ken\Scripts\Level\LevelMng.cs" />
     <Compile Include="Assets\Ken\Scripts\Level\LevelTest.cs" />
+    <Compile Include="Assets\Ken\Scripts\Skill\ComboSystem.cs" />
+    <Compile Include="Assets\Ken\Scripts\Skill\SkillBase.cs" />
+    <Compile Include="Assets\Ken\Scripts\Skill\SkillIai.cs" />
+    <Compile Include="Assets\Ken\Scripts\Skill\SkillMng.cs" />
     <Compile Include="Assets\Ken\Scripts\Weapon\Enemy\EnemyWeaponMelee.cs" />
     <Compile Include="Assets\Ken\Scripts\Weapon\Enemy\EnemyWeaponSword.cs" />
     <Compile Include="Assets\Ken\Scripts\Weapon\Player\PlayerWeaponMelee.cs" />

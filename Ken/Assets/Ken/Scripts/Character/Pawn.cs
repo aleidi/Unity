@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class Pawn : Actor
+public abstract class Pawn : Actor
 {
     protected enum PawnState
     {

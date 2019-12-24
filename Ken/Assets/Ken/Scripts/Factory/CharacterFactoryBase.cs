@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-abstract public class CharacterFactoryBase
+public abstract class CharacterFactoryBase
 {
-    abstract public Character CreatePlayer(EPlayer eChar,
+    public abstract Character CreatePlayer(EPlayer eChar,
                                               EWeapon eWeapon,
                                               Vector3 spawnPosition);
 
-    abstract public Character CreateMonster(EMonster eMonster,
+    public abstract Character CreateMonster(EMonster eMonster,
                                             EWeapon eWeapon,
                                             Vector3 spawnPosition);
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class ControllerBase
+public abstract class ControllerBase
 {
     protected enum MovementState
     {

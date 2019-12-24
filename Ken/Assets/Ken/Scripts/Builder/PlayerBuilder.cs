@@ -28,6 +28,8 @@ public class PlayerBuilder : CharacterBuilderBase
     {
         m_BuildParam.Character.SetWeapon(new PlayerWeaponSword());
         m_BuildParam.Character.GetWeapon().SetOwner(m_BuildParam.Character);
+
+        AddSkills();
 ;    }
 
     public override void SetCharacterAttr()
@@ -46,5 +48,10 @@ public class PlayerBuilder : CharacterBuilderBase
     public override void AddCharacterToList()
     {
         
+    }
+
+    protected virtual void AddSkills()
+    {
+        SkillMng.Instance.AddSkill(new SkillIai("Iai",0, m_BuildParam.Character as Player));
     }
 }

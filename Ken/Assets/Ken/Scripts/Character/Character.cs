@@ -125,6 +125,11 @@ public class Character : Pawn
         SetAnimBool(GetAnimParamId().IsInBattle, m_bIsInBattle);
     }
 
+    public void SetBattleMode()
+    {
+        SetAnimBool(GetAnimParamId().IsInBattle, true);
+    }
+
     public virtual void UnderAttack()
     {
         SetAnimTrigger(GetAnimParamId().Hited);
@@ -141,7 +146,6 @@ public class Character : Pawn
         m_bIsCounter = true;
         GameTools.Instance.TimerForSeconds(m_fPGDifficulity, () =>
          {
-             Debug.Log("counter after timer");
              m_bIsCounter = false;
          });
     }
@@ -349,16 +353,16 @@ public class Character : Pawn
 
     }
 
-    public virtual void AttackAnimPause(float value)
+    public void AnimPauseForSeconds(float time)
     {
-        AnimPauseForSeconds(value);
-    }
-    
-    protected void AnimPauseForSeconds(float time)
-    {
-        float _spd = GetAnimator().speed;
+        //float _spd = GetAnimator().speed;
+        //GetAnimator().speed = 0;
+        //GameTools.Instance.TimerForSeconds(time, ResetAnimSpeed,_spd);
         GetAnimator().speed = 0;
-        GameTools.Instance.TimerForSeconds(time, ResetAnimSpeed,_spd);
+        GameTools.Instance.TimerForSeconds(time, () =>
+         {
+             GetAnimator().speed = 1;
+         });
     }
 
     protected void ResetAnimSpeed(float theSpeed)
@@ -409,6 +413,11 @@ public class Character : Pawn
     public bool IsPerfectGuard()
     {
         return m_bIsPerfectGuard;
+    }
+
+    public bool IsInDefense()
+    {
+        return m_eCharState == ECharState.Defence;
     }
 
     public void SetAnimPlaySpeed(float value)

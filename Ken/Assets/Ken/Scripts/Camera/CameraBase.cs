@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class CameraBase
+public abstract class CameraBase
 {
     protected Camera m_MainCamera;
     protected Vector3 m_vTarget;

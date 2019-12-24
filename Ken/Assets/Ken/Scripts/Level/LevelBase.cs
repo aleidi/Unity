@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class LevelBase : MonoBehaviour
+public abstract class LevelBase : MonoBehaviour
 {
     protected string m_sName;
 
 
-    abstract public void EnterLevel();
-    abstract public void LeaveLevel();
+    public abstract void EnterLevel();
+    public abstract void LeaveLevel();
     public virtual void OnUpdate(float deltaTime) { }
 
 

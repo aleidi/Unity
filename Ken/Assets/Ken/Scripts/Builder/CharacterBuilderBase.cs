@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-abstract public class CharacterBuildParamBase
+public abstract class CharacterBuildParamBase
 {
     public Character Character { get; set; }
     public EWeapon EWeapon { get; set; }
@@ -9,23 +9,24 @@ abstract public class CharacterBuildParamBase
 
 }
 
-abstract public class CharacterBuilderBase
+public abstract class CharacterBuilderBase
 {
     //Set the construct parameter
-    abstract public void SetBuildParam(CharacterBuildParamBase theParam);
+    public abstract void SetBuildParam(CharacterBuildParamBase theParam);
 
     //Load model
-    abstract public void LoadAsset();
+    public abstract void LoadAsset();
 
     //Add Weapon
-    abstract public void AddWeapon();
+    public abstract void AddWeapon();
 
     //Set character attributes
-    abstract public void SetCharacterAttr();
+    public abstract void SetCharacterAttr();
 
     //Set controller
-    abstract public void SetController();
+    public abstract void SetController();
 
     //Add character to list
-    abstract public void AddCharacterToList();
+    public abstract void AddCharacterToList();
+
 }

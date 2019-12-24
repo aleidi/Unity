@@ -6,7 +6,7 @@ public class PlayerWeaponSword : PlayerWeaponMelee
 
     public PlayerWeaponSword()
     {
-        m_fRange = 1.2f;
+
     }
 
     public override void WeaponAttack()
@@ -19,9 +19,11 @@ public class PlayerWeaponSword : PlayerWeaponMelee
                 enemy.SetKnockBackDir((enemy.GetCharacterPosition() - m_Owner.GetCharacterPosition()) * m_Owner.GetVelocity().magnitude * 0.35f
                     + m_Owner.GetModelForward() * 0.2f);
                 enemy.UnderAttack();
+                (m_Owner as Player).AddComboCount(1);
+                (m_Owner as Player).AddComboEnergy((m_Owner as Player).GetComboCount() * 5);
             }
 
-            m_Owner.AttackAnimPause(0.07f);
+            m_Owner.AnimPauseForSeconds(0.06f);
         }
     }
 

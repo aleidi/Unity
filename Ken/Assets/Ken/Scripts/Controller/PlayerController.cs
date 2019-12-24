@@ -66,6 +66,7 @@ public class PlayerController : ControllerBase
         BindButtonAction(2, ButtonBase.ButtonState.ButtonDown, DoShiftIdleMode);
         BindButtonAction(3, ButtonBase.ButtonState.ButtonDown, DoDefence);
         BindButtonAction(3, ButtonBase.ButtonState.ButtonUp, UndoDefence);
+        BindButtonAction(4, ButtonBase.ButtonState.ButtonDown, DoSkill);
 
         //0 delegate Joystick0
         BindAxis(0, DoMove);
@@ -175,8 +176,14 @@ public class PlayerController : ControllerBase
         m_ContolleredPawn.PlayDefenceAnim(false);
     }
 
+    protected void DoSkill()
+    {
+        (m_ContolleredPawn as Player).UseSkill();
+    }
+
     protected void SetPlayerPawnForward(Vector3 value)
     {
         m_ContolleredPawn.SetForward(value);
     }
+
 }

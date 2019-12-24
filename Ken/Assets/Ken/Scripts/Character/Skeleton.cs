@@ -33,10 +33,11 @@ public class Skeleton : Character
     {
         if(GetCharacterState() != ECharState.Hited)
         {
+            //return;
             SetAnimTrigger(GetAnimParamId().Hited);
             GetAnimator().Play("Hited",0,0);
         }
-        AttackAnimPause(0.1f);
+        AnimPauseForSeconds(0.1f);
         m_Avatar.Rigid.AddForce(m_vKnockBackDir * 200);
     }
 
@@ -92,8 +93,4 @@ public class Skeleton : Character
         return m_vSpawnPos;
     }
 
-    public override void AttackAnimPause(float value)
-    {
-        AnimPauseForSeconds(value);
-    }
 }

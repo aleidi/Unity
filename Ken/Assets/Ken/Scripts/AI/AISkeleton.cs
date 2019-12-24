@@ -131,7 +131,6 @@ public class AISkeleton : AIStateBase
 
             Character _playerPawn = GameInstance.Instance.GetPlayerPawn();
 
-
             float _dis = Vector3.Distance(_playerPawn.GetCharacterPosition(), _sk.GetCharacterPosition());
             if(_dis > m_fGuardRange)
             {

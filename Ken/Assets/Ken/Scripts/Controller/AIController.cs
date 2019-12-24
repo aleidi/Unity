@@ -49,7 +49,7 @@ public class AIController : ControllerBase
     {
         if(m_ContolleredPawn.GetCharacterState() == Character.ECharState.Idle)
         {
-            m_ContolleredPawn.ShiftIdleMode();
+            m_ContolleredPawn.SetBattleMode();
         }
         m_ContolleredPawn.PlayAttackAnim();
     }

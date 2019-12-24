@@ -17,7 +17,7 @@ public class CharacterFactory : CharacterFactoryBase
         switch(eChar)
         {
             case EPlayer.Player:
-                _playerParam.Character = new Character();
+                _playerParam.Character = new Player();
                 break;
             default:
                 Debug.LogError("CreatePlayer can't create player!");

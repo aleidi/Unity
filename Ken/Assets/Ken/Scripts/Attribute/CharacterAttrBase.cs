@@ -1,4 +1,4 @@
-﻿abstract public class CharacterAttrBase
+﻿public abstract class CharacterAttrBase
 {
     public int MaxHp { get; protected set; }
     protected int m_iNowHp;

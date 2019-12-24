@@ -14,8 +14,7 @@ public class EnemyWeaponSword : EnemyWeaponMelee
             if(_player.IsCounter())
             {
                 //_player.SetAnimPlaySpeed(0);
-                m_Owner.AttackAnimPause(0.3f);
-                Debug.Log("Counter!");
+                m_Owner.AnimPauseForSeconds(0.3f);
                 return;
             }
 
@@ -30,31 +29,24 @@ public class EnemyWeaponSword : EnemyWeaponMelee
                      m_Owner.SetAnimPlaySpeed(1);
                  });
 
-                Debug.Log("Perfect Guard!");
                 return;
             }
 
             //Guard Process
-            if(IsTargetInDefence(_player))
+            if (_player.IsInDefense())
             {
                 _player.SetKnockBackDir((_player.GetCharacterPosition() - m_Owner.GetCharacterPosition()) * 1.5f);
                 _player.Defense();
-                m_Owner.AttackAnimPause(0.1f);
+                m_Owner.AnimPauseForSeconds(0.1f);
 
-                Debug.Log("Defense!");
                 return;
             }
 
             //Hited Process
             _player.SetKnockBackDir((_player.GetCharacterPosition() - m_Owner.GetCharacterPosition()) * 4.5f);
             _player.UnderAttack();
-            m_Owner.AttackAnimPause(0.1f);
+            m_Owner.AnimPauseForSeconds(0.1f);
             Debug.Log("Hited!");
         }
-    }
-
-    protected bool IsTargetInDefence(Character target)
-    {
-        return target.GetCharacterState() == Character.ECharState.Defence;
     }
 }
