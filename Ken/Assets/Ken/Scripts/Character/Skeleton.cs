@@ -29,8 +29,15 @@ public class Skeleton : Character
         SetAnimTrigger(GetAnimParamId().Attack);
     }
 
-    public override void UnderAttack()
+    public override void UnderAttack(Character attacker)
     {
+        if(m_Attribute.CalEndurance(attacker) > 0)
+        {
+            return;
+        }
+
+        m_Attribute.CalDamage(attacker);
+
         if(GetCharacterState() != ECharState.Hited)
         {
             //return;
@@ -79,6 +86,12 @@ public class Skeleton : Character
         if (_sInfo.IsName("Jump"))
         {
             SetCharacterState(ECharState.Jumping);
+            return;
+        }
+
+        if (_sInfo.IsName("Death"))
+        {
+            SetCharacterState(ECharState.Dead);
             return;
         }
     }

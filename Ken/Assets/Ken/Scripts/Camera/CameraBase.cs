@@ -6,7 +6,7 @@ public abstract class CameraBase
 {
     protected Camera m_MainCamera;
     protected Vector3 m_vTarget;
-
+    protected CameraShake m_CameraShake;
 
     public CameraBase() { }
 
@@ -39,5 +39,14 @@ public abstract class CameraBase
         return Quaternion.AngleAxis(m_MainCamera.transform.rotation.y, Vector3.up) * m_MainCamera.transform.forward;
     }
 
+    public void DoShake(Vector3 target, float range, float stress)
+    {
+        m_CameraShake.DoShake(target, range, stress);
+    }
+
+    public void SetPlayerHitedShakeParam()
+    {
+        m_CameraShake.SetPlayerHitedShakeParam();
+    }
 
 }

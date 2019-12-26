@@ -20,6 +20,11 @@ public class Player : Character
 
     }
 
+    public ComboSystem GetComboSys()
+    {
+        return m_ComboSys;
+    }
+
     public void AddComboEnergy(int value)
     {
         m_ComboSys.AddComboEnergy(value);
@@ -28,6 +33,11 @@ public class Player : Character
     public void AddComboCount(int value)
     {
         m_ComboSys.AddComboCount(value);
+    }
+
+    public void AddSkillEnergy(int value)
+    {
+        m_ComboSys.AddSkillEnergy(value);
     }
 
     public int GetComboCount()
@@ -47,6 +57,14 @@ public class Player : Character
 
     public void UseSkill()
     {
+
+        if (m_eCharState != ECharState.Attacking &&
+            m_eCharState != ECharState.IdleInBattle &&
+            m_eCharState != ECharState.Moving)
+        {
+            return;
+        }
+
         SkillMng.Instance.UseSkill("Iai");
     }
 }

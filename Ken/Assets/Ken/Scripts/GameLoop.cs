@@ -7,12 +7,15 @@ public class GameLoop : MonoBehaviour
     void Awake()
     {
         OnInit();
+
+        GameInstance.Instance.OnInit();
+
+        DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        GameInstance.Instance.OnInit();
     }
 
     // Update is called once per frame
@@ -31,7 +34,7 @@ public class GameLoop : MonoBehaviour
 
         Character _player = FactoryMng.Instance.GetCharacterFactory().CreatePlayer(EPlayer.Player, EWeapon.Sword, new Vector3(0, 5, 3.5f));
 
-        FactoryMng.Instance.GetCharacterFactory().CreateMonster(EMonster.Skeleton, EWeapon.Sword, new Vector3(5, 5, 3.5f));
+        FactoryMng.Instance.GetCharacterFactory().CreateMonster(EEnemy.Skeleton, EWeapon.Sword, new Vector3(5, 5, 3.5f));
 
         //Create Gamemode
         GameInstance.Instance.CreateGameMdoe(_player.GetController() as PlayerController, _player);

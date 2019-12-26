@@ -62,12 +62,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\HorizontalTrigger.cs" />
     <Compile Include="Assets\Ken\Scripts\AI\AISkeleton.cs" />
     <Compile Include="Assets\Ken\Scripts\AI\AIStateBase.cs" />
     <Compile Include="Assets\Ken\Scripts\AI\AIStateMachine.cs" />
     <Compile Include="Assets\Ken\Scripts\Animator\AnimEvent.cs" />
     <Compile Include="Assets\Ken\Scripts\Animator\AttackState.cs" />
     <Compile Include="Assets\Ken\Scripts\Animator\CounterState.cs" />
+    <Compile Include="Assets\Ken\Scripts\Animator\DeathState.cs" />
     <Compile Include="Assets\Ken\Scripts\Animator\DefenceState.cs" />
     <Compile Include="Assets\Ken\Scripts\Animator\HitedState.cs" />
     <Compile Include="Assets\Ken\Scripts\Animator\IdleInBattleState.cs" />
@@ -78,6 +80,7 @@
     <Compile Include="Assets\Ken\Scripts\Animator\ResetAttackTrigger.cs" />
     <Compile Include="Assets\Ken\Scripts\Animator\ResetHitedTrigger.cs" />
     <Compile Include="Assets\Ken\Scripts\Animator\ResetJumpTrigger.cs" />
+    <Compile Include="Assets\Ken\Scripts\Animator\SkillState.cs" />
     <Compile Include="Assets\Ken\Scripts\Attribute\CharacterAttrBase.cs" />
     <Compile Include="Assets\Ken\Scripts\Attribute\EnemyAttribute.cs" />
     <Compile Include="Assets\Ken\Scripts\Attribute\PlayerAttribute.cs" />
@@ -89,8 +92,10 @@
     <Compile Include="Assets\Ken\Scripts\Camera\Camera2D.cs" />
     <Compile Include="Assets\Ken\Scripts\Camera\CameraBase.cs" />
     <Compile Include="Assets\Ken\Scripts\Camera\CameraMng.cs" />
+    <Compile Include="Assets\Ken\Scripts\Camera\CameraShake.cs" />
     <Compile Include="Assets\Ken\Scripts\Character\Actor.cs" />
     <Compile Include="Assets\Ken\Scripts\Character\Character.cs" />
+    <Compile Include="Assets\Ken\Scripts\Character\CharacterShake.cs" />
     <Compile Include="Assets\Ken\Scripts\Character\Pawn.cs" />
     <Compile Include="Assets\Ken\Scripts\Character\Player.cs" />
     <Compile Include="Assets\Ken\Scripts\Character\Skeleton.cs" />
@@ -109,6 +114,8 @@
     <Compile Include="Assets\Ken\Scripts\Input\AxisBase.cs" />
     <Compile Include="Assets\Ken\Scripts\Input\ButtonBase.cs" />
     <Compile Include="Assets\Ken\Scripts\Input\InputMng.cs" />
+    <Compile Include="Assets\Ken\Scripts\Level\Level01.cs" />
+    <Compile Include="Assets\Ken\Scripts\Level\Level02.cs" />
     <Compile Include="Assets\Ken\Scripts\Level\LevelBase.cs" />
     <Compile Include="Assets\Ken\Scripts\Level\LevelMng.cs" />
     <Compile Include="Assets\Ken\Scripts\Level\LevelTest.cs" />
@@ -116,6 +123,8 @@
     <Compile Include="Assets\Ken\Scripts\Skill\SkillBase.cs" />
     <Compile Include="Assets\Ken\Scripts\Skill\SkillIai.cs" />
     <Compile Include="Assets\Ken\Scripts\Skill\SkillMng.cs" />
+    <Compile Include="Assets\Ken\Scripts\UI\UICombo.cs" />
+    <Compile Include="Assets\Ken\Scripts\UI\UISkill.cs" />
     <Compile Include="Assets\Ken\Scripts\Weapon\Enemy\EnemyWeaponMelee.cs" />
     <Compile Include="Assets\Ken\Scripts\Weapon\Enemy\EnemyWeaponSword.cs" />
     <Compile Include="Assets\Ken\Scripts\Weapon\Player\PlayerWeaponMelee.cs" />
@@ -123,6 +132,8 @@
     <Compile Include="Assets\Ken\Scripts\Weapon\WeaponBase.cs" />
     <Compile Include="Assets\Ken\Scripts\Weapon\WeaponMelee.cs" />
     <Compile Include="Assets\Ken\Scripts\Weapon\WeaponProjectile.cs" />
+    <Compile Include="Assets\MainMenu.cs" />
+    <Compile Include="Assets\VerticalTrigger.cs" />
     <None Include="Assets\Ken\Models\Unitychan\Shader\Unitychan_chara_eye.shader" />
     <None Include="Assets\Ken\Models\Unitychan\Shader\Unitychan_chara_fuku.shader" />
     <None Include="Assets\Ken\Audios\Voice\Unitychan\unity-chan_voice_list.txt" />
@@ -155,6 +166,9 @@
     </Reference>
     <Reference Include="Unity.Rider.Editor">
       <HintPath>F:/GitHub/Unity/Ken/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>F:/GitHub/Unity/Ken/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>F:/GitHub/Unity/Ken/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>

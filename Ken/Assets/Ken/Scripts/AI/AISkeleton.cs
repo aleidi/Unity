@@ -29,21 +29,27 @@ public class AISkeleton : AIStateBase
             m_fAttackRange = (Agent as Skeleton).GetAttribute().AttackRange;
             m_fGuardRange = ((Agent as Skeleton).GetAttribute() as EnemyAttribute).GuardRange;
             m_fInterval = 2;
-           // Debug.Log("SkeletonAI enter idle mode");
+            Debug.Log("SkeletonAI enter idle mode");
         }
 
         public override void Exit()
         {
-            //Debug.Log("SkeletonAI exit idle mode");
+            Debug.Log("SkeletonAI exit idle mode");
         }
 
         public override AIStateBase Execute()
         {
-            m_vRPos = (Agent as Skeleton).GetSpawnPosition() + 5 * GameInstance.Instance.GetCameraRight();
-            m_vLPos = (Agent as Skeleton).GetSpawnPosition() + 5 * GameInstance.Instance.GetCameraRight() * -1;
+            Skeleton _sk = Agent as Skeleton;
+
+            if(Character.ECharState.Dead == _sk.GetCharacterState())
+            {
+                return m_Machine.Transition((int)EStateType.Death);
+            }
 
             Character _playerPawn = GameInstance.Instance.GetPlayerPawn();
-            Skeleton _sk = Agent as Skeleton;
+
+            m_vRPos = (Agent as Skeleton).GetSpawnPosition() + 5 * Vector3.right;
+            m_vLPos = (Agent as Skeleton).GetSpawnPosition() + 5 * Vector3.right * -1;
 
             float _dis = Vector3.Distance(_playerPawn.GetCharacterPosition(), _sk.GetCharacterPosition());
 
@@ -83,8 +89,15 @@ public class AISkeleton : AIStateBase
 
         public override AIStateBase Execute()
         {
-            Character _playerPawn = GameInstance.Instance.GetPlayerPawn();
             Skeleton _sk = Agent as Skeleton;
+
+            if (Character.ECharState.Dead == _sk.GetCharacterState())
+            {
+                return m_Machine.Transition((int)EStateType.Death);
+            }
+
+            Character _playerPawn = GameInstance.Instance.GetPlayerPawn();
+
             float _dis = Vector3.Distance(_playerPawn.GetCharacterPosition(), _sk.GetCharacterPosition());
    
             if(_dis < (_sk.GetAttribute() as EnemyAttribute).AttackRange - 0.1f)
@@ -124,7 +137,13 @@ public class AISkeleton : AIStateBase
         public override AIStateBase Execute()
         {
             Skeleton _sk = Agent as Skeleton;
-            if(_sk.GetCharacterState() == Character.ECharState.Attacking)
+
+            if (Character.ECharState.Dead == _sk.GetCharacterState())
+            {
+                return m_Machine.Transition((int)EStateType.Death);
+            }
+
+            if (_sk.GetCharacterState() == Character.ECharState.Attacking)
             {
                 return this;
             }
@@ -145,6 +164,34 @@ public class AISkeleton : AIStateBase
             (_sk.GetController() as AIController).DoAttack();
             
             return this;          
+        }
+    }
+
+    public class Death : AIStateBase
+    {
+        public Death()
+        {
+            StateType = (int)EStateType.Death;
+        }
+
+        public override void Enter()
+        {
+
+            // Debug.Log("SkeletonAI enter idle mode");
+        }
+
+        public override void Exit()
+        {
+            //Debug.Log("SkeletonAI exit idle mode");
+        }
+
+        public override AIStateBase Execute()
+        {
+            Skeleton _sk = Agent as Skeleton;
+
+            _sk.Move(0);
+
+            return this;
         }
     }
 }

@@ -17,7 +17,7 @@ public class CharacterFactory : CharacterFactoryBase
         switch(eChar)
         {
             case EPlayer.Player:
-                _playerParam.Character = new Player();
+                _playerParam.Character = new Player(); 
                 break;
             default:
                 Debug.LogError("CreatePlayer can't create player!");
@@ -39,14 +39,14 @@ public class CharacterFactory : CharacterFactoryBase
         return _playerParam.Character; 
     }
 
-    public override Character CreateMonster(EMonster eMonster, EWeapon eWeapon, Vector3 spawnPosition)
+    public override Character CreateMonster(EEnemy EEnemy, EWeapon eWeapon, Vector3 spawnPosition)
     {
         //Set monster parameter
         EnemyBuildParam _monsterParam = new EnemyBuildParam();
 
-        switch(eMonster)
+        switch(EEnemy)
         {
-            case EMonster.Skeleton:
+            case EEnemy.Skeleton:
                 _monsterParam.Character = new Skeleton();
                 break;
             default:

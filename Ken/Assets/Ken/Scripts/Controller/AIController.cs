@@ -30,17 +30,17 @@ public class AIController : ControllerBase
     public virtual void MoveTo(Vector3 tPos)
     {
         Vector3 _dir = tPos - m_ContolleredPawn.GetCharacterPosition();
-        bool _isRight = Vector3.Dot(_dir, GameInstance.Instance.GetCameraRight()) > 0 ? true : false;
+        bool _isRight = Vector3.Dot(_dir, Vector3.right) > 0 ? true : false;
         if(true == _isRight)
         {
             m_ContolleredPawn.Move(1);
-            m_ContolleredPawn.SetForward(GameInstance.Instance.GetCameraForward());
+            m_ContolleredPawn.SetForward(Vector3.forward);
             return;
         }
         if(false ==_isRight)
         {
             m_ContolleredPawn.Move(-1);
-            m_ContolleredPawn.SetForward(GameInstance.Instance.GetCameraForward() * -1);
+            m_ContolleredPawn.SetForward(Vector3.forward * -1);
             return;
         }
     }

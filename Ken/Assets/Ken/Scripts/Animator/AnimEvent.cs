@@ -10,6 +10,8 @@ public class AnimEvent : MonoBehaviour
     public event Counter EventCounter;
     public delegate void PerfectGuard();
     public event PerfectGuard EventPerfectGuard;
+    public delegate void Skill(string name);
+    public event Skill EventSkill;
     private Animator m_Anim;
 
     void Awake()
@@ -37,4 +39,8 @@ public class AnimEvent : MonoBehaviour
         EventPerfectGuard.Invoke();
     }
 
+    void OnSkill(string name)
+    {
+        EventSkill.Invoke(name);
+    }
 }

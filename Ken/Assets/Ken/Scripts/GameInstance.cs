@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameInstance
 {
@@ -82,6 +83,11 @@ public class GameInstance
         return m_GameMode.GetController();
     }
 
+    public ComboSystem GetComboSys()
+    {
+        return (GetPlayerPawn() as Player).GetComboSys();
+    }
+
     public List<Character> GetEnemyList()
     {
         return FactoryMng.Instance.GetEnemyList();
@@ -95,5 +101,15 @@ public class GameInstance
     public Vector3 GetCameraForward()
     {
         return CameraMng.Instance.GetCameraForward();
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+    public void OpenLevel(string name)
+    {
+        SceneManager.LoadScene(name);
     }
 }

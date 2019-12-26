@@ -28,4 +28,9 @@ public class SkillMng
     {
         m_Skills[name].UseSkill();
     }
+
+    public SkillBase GetSkill(string name)
+    {
+        return m_Skills[name];
+    }
 }

@@ -75,7 +75,7 @@ public class PlayerController : ControllerBase
 
     protected void DoAttack()
     {
-        if (!IsInputEnable())
+        if (false == m_bInputEnabled)
         {
             Debug.Log("input disabled!");
             return;
@@ -89,7 +89,7 @@ public class PlayerController : ControllerBase
 
     protected void DoJump()
     {
-        if(!IsInputEnable())
+        if(false == m_bInputEnabled)
         {
             Debug.Log("input disabled!");
             return;
@@ -105,13 +105,18 @@ public class PlayerController : ControllerBase
 
     protected void DoMove(float value)
     {
+        if(false == m_bInputEnabled)
+        {
+            return;
+        }
+
         if (value > 0)
         {
-            SetPlayerPawnForward(GameInstance.Instance.GetCameraForward());
+            SetPlayerPawnForward(Vector3.forward);
         }
         if(value < 0)
         {
-            SetPlayerPawnForward(GameInstance.Instance.GetCameraForward() * -1);
+            SetPlayerPawnForward(Vector3.forward * -1);
         }
         m_ContolleredPawn.Move(value);
     }
@@ -135,11 +140,6 @@ public class PlayerController : ControllerBase
     public void DeactivateInput()
     {
         m_bInputEnabled = false;
-    }
-
-    protected bool IsInputEnable()
-    {
-        return m_bInputEnabled;
     }
 
      protected override void FallOnGround()

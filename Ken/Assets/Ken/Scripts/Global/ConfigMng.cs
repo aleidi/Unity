@@ -3,7 +3,7 @@
     Player
 }
 
-public enum EMonster
+public enum EEnemy
 {
     Skeleton
 }

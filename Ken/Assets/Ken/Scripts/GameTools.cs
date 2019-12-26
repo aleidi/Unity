@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
-using System.Threading.Tasks;
+using UnityEngine.SceneManagement;
 
 public class GameTools : MonoBehaviour
 {
@@ -49,5 +48,4 @@ public class GameTools : MonoBehaviour
         fun.Invoke(t);
     }
 
- 
 }

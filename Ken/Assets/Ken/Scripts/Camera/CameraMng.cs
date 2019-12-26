@@ -54,4 +54,35 @@ public class CameraMng
     {
         return m_Camera.GetForward();
     }
+
+    public void DoCameraShake(Vector3 target, float range, float stress)
+    {
+        m_Camera.DoShake(target, range, stress);
+    }
+
+    public void SetPlayerHitedShakeParam()
+    {
+        m_Camera.SetPlayerHitedShakeParam();
+    }
+
+    public void ActivateHorizontalTrace(bool value)
+    {
+        (m_Camera as Camera2D).ActivateHorizontalTrace(value);
+    }
+
+    public void ActivateVerticalTrace(bool value)
+    {
+        (m_Camera as Camera2D).ActivateVerticalTrace(value);
+    }
+
+    public bool IsTraceInHorizontal()
+    {
+        return (m_Camera as Camera2D).IsTraceInHorizontal();
+    }
+
+    public bool IsTraceInVertical()
+    {
+        return (m_Camera as Camera2D).IsTraceInVertical();
+    }
+
 }

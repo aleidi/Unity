@@ -13,7 +13,9 @@ public class Character : Pawn
         Jumping,
         Hited,
         Defence,
-        Counter
+        Counter,
+        Skill,
+        Dead
     }
 
     protected struct Avatar
@@ -24,12 +26,14 @@ public class Character : Pawn
         public Animator Anim;
         public AnimEvent AnimEvent;
         public Transform ModelTrans;
+        public CharacterShake CharShake;
     }
 
     protected struct AnimParamId
     {
         public int IsInBattle;
         public int IsInDefence;
+        public int IsDead;
         public int Attack;
         public int Jump;
         public int Hited;
@@ -73,6 +77,8 @@ public class Character : Pawn
         m_Avatar.AnimEvent.EventAttack += OnAttack;
         m_Avatar.AnimEvent.EventCounter += OnCounter;
         m_Avatar.AnimEvent.EventPerfectGuard += SetPerfectGuard;
+        m_Avatar.AnimEvent.EventSkill += OnSkill;
+        m_Attribute.EventOnDeath += OnDeath;
     }
 
     public override void OnUpdate(float deltaTime)
@@ -84,7 +90,7 @@ public class Character : Pawn
 
     public override void Move(float value)
     {
-        Vector3 _moveVal = GameInstance.Instance.GetCameraRight() * MoveCalculate(value) * m_Attribute.MoveSpeed * m_Attribute.MoveSpeedAtten;
+        Vector3 _moveVal = Vector3.right * MoveCalculate(value) * m_Attribute.MoveSpeed * m_Attribute.MoveSpeedAtten;
         m_Avatar.Rigid.velocity =  new Vector3(_moveVal.x, m_Avatar.Rigid.velocity.y, _moveVal.z);
         PlayMoveAnim(value);
     }
@@ -106,9 +112,12 @@ public class Character : Pawn
         SetAnimTrigger(GetAnimParamId().Jump);
         GetAnimator().Play("Jump", 0, 0);
 
-        //Reset the up velocity
-        m_Avatar.Rigid.velocity = new Vector3(m_Avatar.Rigid.velocity.x, 0, m_Avatar.Rigid.velocity.z);
-        m_Avatar.Rigid.AddForce(Vector3.up * m_Attribute.JumpForce);
+        ////Reset the up velocity
+        //m_Avatar.Rigid.velocity = new Vector3(m_Avatar.Rigid.velocity.x, 0, m_Avatar.Rigid.velocity.z);
+        //m_Avatar.Rigid.AddForce(Vector3.up * m_Attribute.JumpForce);
+
+        m_Avatar.Rigid.velocity = new Vector3(m_Avatar.Rigid.velocity.x, (Vector3.up * m_Attribute.JumpForce).y, m_Avatar.Rigid.velocity.z);
+
 
         return true;
     }
@@ -116,6 +125,23 @@ public class Character : Pawn
     protected virtual void OnAttack()
     {
         m_Weapon.WeaponAttack();
+    }
+
+    protected virtual void OnSkill(string name)
+    {
+        SkillMng.Instance.GetSkill(name).SkillAttack();
+    }
+
+    protected virtual void OnDeath()
+    {
+
+        SetAnimBool(GetAnimParamId().IsDead, true);
+        GetAnimator().Play("Death");
+
+        GameTools.Instance.TimerForSeconds(5, () =>
+         {
+             m_Avatar.Trans.gameObject.SetActive(false);
+         });
     }
 
     public void ShiftIdleMode()
@@ -130,8 +156,9 @@ public class Character : Pawn
         SetAnimBool(GetAnimParamId().IsInBattle, true);
     }
 
-    public virtual void UnderAttack()
+    public virtual void UnderAttack(Character attacker)
     {
+        m_Attribute.CalDamage(attacker);
         SetAnimTrigger(GetAnimParamId().Hited);
         m_Avatar.Rigid.AddForce(m_vKnockBackDir * 200);
     }
@@ -254,6 +281,7 @@ public class Character : Pawn
     {
         m_AnimParamId.IsInBattle = GetAnimParaHash("IsInBattle");
         m_AnimParamId.IsInDefence = GetAnimParaHash("IsInDefence");
+        m_AnimParamId.IsDead = GetAnimParaHash("IsDead");
         m_AnimParamId.Attack = GetAnimParaHash("Attack");
         m_AnimParamId.Jump = GetAnimParaHash("Jump");
         m_AnimParamId.Hited = GetAnimParaHash("Hited");
@@ -310,6 +338,7 @@ public class Character : Pawn
         m_Avatar.Anim = avatar.transform.GetComponent<Animator>();
         m_Avatar.AnimEvent = avatar.transform.GetComponent<AnimEvent>();
         m_Avatar.ModelTrans = avatar.transform.GetChild(0);
+        m_Avatar.CharShake = m_Avatar.ModelTrans.GetComponent<CharacterShake>();
     }
 
     public void SetWeapon(WeaponBase weapon)
@@ -430,4 +459,13 @@ public class Character : Pawn
         return m_bIsCounter;
     }
 
+    public void Dash(float value)
+    {
+        m_Avatar.Trans.Translate(GetModelForward() * value,Space.World);
+    }
+
+    public void CharacterShake()
+    {
+        m_Avatar.CharShake.DoShake(0.6f);
+    }
 }

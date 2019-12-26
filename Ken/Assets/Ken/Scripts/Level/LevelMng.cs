@@ -22,17 +22,18 @@ public class LevelMng
 
     public void OnInit()
     {
-
+        m_CurrentLevel = new Level01();
+        m_CurrentLevel.EnterLevel();
     }
 
     public void OnUpdate(float deltaTime)
     {
-      //  Debug.Log("LevelMng is updating!" + "DeltaTime:" + deltaTime);
+        m_CurrentLevel.OnUpdate(deltaTime);
     }
 
-    public void ChangeLevel(string levelName)
+    public void ChangeLevel(LevelBase level)
     {
-        if(levelName == m_CurrentLevel.GetName())
+        if(level == m_CurrentLevel)
         {
             Debug.Log("Level is already opened!");
             return;
@@ -40,16 +41,9 @@ public class LevelMng
 
         m_CurrentLevel.LeaveLevel();
 
-        m_CurrentLevel = m_Levels[levelName];
+        m_CurrentLevel = level;
 
         m_CurrentLevel.EnterLevel();
     }
-
-    private void LevelInit()
-    {
-        m_CurrentLevel = new LevelTest();
-    }
-
-
 
 }

@@ -1,5 +1,10 @@
-﻿public abstract class CharacterAttrBase
+﻿using UnityEngine;
+
+public abstract class CharacterAttrBase
 {
+    public delegate void OnDeath();
+    public event OnDeath EventOnDeath;
+
     public int MaxHp { get; protected set; }
     protected int m_iNowHp;
 
@@ -7,6 +12,7 @@
     public int MaxEndurance { get; protected set; }
     protected int m_iNowEndurance;
     public float AttackRange { get; protected set; }
+    public int Atk { get; protected set; }
 
     //Move Attributes
     public float MoveSpeed { get; protected set; }
@@ -40,4 +46,30 @@
         MoveSpeedAtten = value;
     }
 
+    public virtual int CalEndurance(Character attacker)
+    {
+        m_iNowEndurance -= attacker.GetAttribute().Atk;
+        if(m_iNowEndurance <= 0)
+        {
+            m_iNowEndurance = 0;
+        }
+        //Debug.Log("endurance:" + m_iNowEndurance);
+        return m_iNowEndurance;
+    }
+
+    public virtual int CalDamage(Character attacker)
+    {
+        m_iNowHp -= attacker.GetAttribute().Atk;
+        if(m_iNowHp <= 0)
+        {
+            m_iNowHp = 0;
+
+            if(EventOnDeath != null)
+            {
+                EventOnDeath.Invoke();
+            }
+        }
+        //Debug.Log("hp after damage:" + m_iNowHp);
+        return m_iNowHp;
+    }
 }

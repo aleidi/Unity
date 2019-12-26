@@ -3,6 +3,8 @@
 public class EnemyBuildParam : CharacterBuildParamBase
 {
     public EnemyBuildParam() { }
+
+    public EEnemy MonsterType { get; set; }
 }
 
 public class EnemyBuilder : CharacterBuilderBase
@@ -32,11 +34,21 @@ public class EnemyBuilder : CharacterBuilderBase
 
     public override void SetCharacterAttr()
     {
-        CharacterAttrBase _attribtue = new EnemyAttribute(100, 100, 
-            8f, 0.2f, 250, 1,
-            1.6f, 5,
-            "Skeleton");
-        m_BuildParam.Character.SetAttribute(_attribtue);
+        switch(m_BuildParam.MonsterType)
+        {
+            case EEnemy.Skeleton:
+                CharacterAttrBase _attribtue = new EnemyAttribute(100, 100, 10,
+                    8f, 0.2f, 250, 1,
+                    1.6f, 5,
+                    "Skeleton");
+                m_BuildParam.Character.SetAttribute(_attribtue);
+                break;
+            default:
+                Debug.Log("Enemy attribute can not constructed!");
+                break;
+
+        }
+
         (m_BuildParam.Character as Skeleton).SetSpawnPosition(m_BuildParam.SpawnPos);
     }
 
@@ -47,12 +59,17 @@ public class EnemyBuilder : CharacterBuilderBase
         (m_BuildParam.Character.GetController() as AIController).GetAIMachine().AddState(new AISkeleton.Idle());
         (m_BuildParam.Character.GetController() as AIController).GetAIMachine().AddState(new AISkeleton.Chase());
         (m_BuildParam.Character.GetController() as AIController).GetAIMachine().AddState(new AISkeleton.Attack());
+        (m_BuildParam.Character.GetController() as AIController).GetAIMachine().AddState(new AISkeleton.Death());
+
         (m_BuildParam.Character.GetController() as AIController).GetAIMachine().SetDefualtState((int)AIStateBase.EStateType.Idle);
     }
 
     public override void AddCharacterToList()
     {
         FactoryMng.Instance.AddEnemyToList(m_BuildParam.Character);
+
+        //Set spawn position
+        (m_BuildParam.Character as Skeleton).SetSpawnPosition(m_BuildParam.SpawnPos);
     }
 
 }

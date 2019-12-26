@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class LevelBase : MonoBehaviour
+public abstract class LevelBase
 {
     protected string m_sName;
 
@@ -12,9 +12,7 @@ public abstract class LevelBase : MonoBehaviour
     public virtual void OnUpdate(float deltaTime) { }
 
 
-    public LevelBase()
-    {
-    }
+    public LevelBase() { }
 
     public string GetName()
     {

@@ -56,7 +56,7 @@ public class InputMng
         for (int i = 0; i < num; i++)
         {
             m_Buttons[i] = new ButtonBase(m_sBtnName + i.ToString());
-            Debug.Log(m_Buttons[i].GetName());
+            //Debug.Log(m_Buttons[i].GetName());
         }
     }
 

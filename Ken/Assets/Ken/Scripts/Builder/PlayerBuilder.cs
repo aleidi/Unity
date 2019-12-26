@@ -34,8 +34,8 @@ public class PlayerBuilder : CharacterBuilderBase
 
     public override void SetCharacterAttr()
     {
-        CharacterAttrBase _attribtue = new PlayerAttribute(100, 100, 1.5f,
-          8f,0.2f, 250, 2,
+        CharacterAttrBase _attribtue = new PlayerAttribute(50, 100, 1.5f, 20,
+          8f, 0.2f, 5, 2,
           "Player");
         m_BuildParam.Character.SetAttribute(_attribtue);
     }
@@ -52,6 +52,6 @@ public class PlayerBuilder : CharacterBuilderBase
 
     protected virtual void AddSkills()
     {
-        SkillMng.Instance.AddSkill(new SkillIai("Iai",0, m_BuildParam.Character as Player));
+        SkillMng.Instance.AddSkill(new SkillIai("Iai",1, m_BuildParam.Character as Player));
     }
 }
