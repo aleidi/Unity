@@ -8,7 +8,7 @@ public class JumpState : StateMachineBehaviour
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         GameInstance.Instance.GetPlayerPawn().SetCharacterState(Character.ECharState.Jumping);
-        GameInstance.Instance.GetPlayerPawn().SetMoveSpeedAtten(0.8f);
+        GameInstance.Instance.GetPlayerPawn().SetMoveSpeedAtten(0.5f);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

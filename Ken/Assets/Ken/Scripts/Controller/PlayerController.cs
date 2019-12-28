@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerController : ControllerBase
 {
     protected ButtonBase[] m_Buttons;
-    protected int m_iJumpTimes;
     protected int m_iCurrentJumpTimes;
     protected bool m_bInputEnabled;
 
@@ -184,6 +183,11 @@ public class PlayerController : ControllerBase
     protected void SetPlayerPawnForward(Vector3 value)
     {
         m_ContolleredPawn.SetForward(value);
+    }
+
+    public void SetJumpTimes(int value)
+    {
+        m_ContolleredPawn.SetJumpTimes(value);
     }
 
 }

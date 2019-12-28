@@ -31,12 +31,12 @@ public class Skeleton : Character
 
     public override void UnderAttack(Character attacker)
     {
+        m_Attribute.CalDamage(attacker);
+
         if(m_Attribute.CalEndurance(attacker) > 0)
         {
             return;
         }
-
-        m_Attribute.CalDamage(attacker);
 
         if(GetCharacterState() != ECharState.Hited)
         {
@@ -104,6 +104,18 @@ public class Skeleton : Character
     public Vector3 GetSpawnPosition()
     {
         return m_vSpawnPos;
+    }
+
+    public override void CharacterShake()
+    {
+        m_Avatar.CharShake.DoShake(0.7f);
+    }
+
+    public override void OnDeath()
+    {
+        base.OnDeath();
+
+        FactoryMng.Instance.GetEnemyList().Remove(this);
     }
 
 }

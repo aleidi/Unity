@@ -7,7 +7,7 @@ public class UISkill : MonoBehaviour
 {
     private Image m_Image;
 
-    private void Awake()
+    private void Start()
     {
         m_Image = GetComponent<Image>();
 

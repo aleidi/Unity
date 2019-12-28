@@ -8,7 +8,7 @@ public class UICombo : MonoBehaviour
     private Image m_Image;
     private float m_fAmount;
 
-    private void Awake()
+    private void Start()
     {
         m_Image = GetComponent<Image>();
 

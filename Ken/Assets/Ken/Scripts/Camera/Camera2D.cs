@@ -20,6 +20,7 @@ public class Camera2D : CameraBase
         if(null == m_MainCamera)
         {
             m_MainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            Object.DontDestroyOnLoad(m_MainCamera.gameObject);
         }
     }
 
@@ -51,6 +52,7 @@ public class Camera2D : CameraBase
 
         SetFollowTarget2D();
         FollowTarget();
+
     }
 
     protected void SetLongitudinalDistanceToTarget(float value)

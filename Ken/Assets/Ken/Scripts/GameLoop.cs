@@ -11,6 +11,7 @@ public class GameLoop : MonoBehaviour
         GameInstance.Instance.OnInit();
 
         DontDestroyOnLoad(gameObject);
+
     }
 
     // Start is called before the first frame update
@@ -32,12 +33,14 @@ public class GameLoop : MonoBehaviour
     private void OnInit()
     {
 
-        Character _player = FactoryMng.Instance.GetCharacterFactory().CreatePlayer(EPlayer.Player, EWeapon.Sword, new Vector3(0, 5, 3.5f));
+        //Character _player = FactoryMng.Instance.GetCharacterFactory().CreatePlayer(EPlayer.Player, EWeapon.Sword, new Vector3(0, 5, 3.5f));
 
-        FactoryMng.Instance.GetCharacterFactory().CreateMonster(EEnemy.Skeleton, EWeapon.Sword, new Vector3(5, 5, 3.5f));
+        //FactoryMng.Instance.GetCharacterFactory().CreateEnemy(EEnemy.Skeleton, EWeapon.Sword, new Vector3(5, 5, 3.5f));
 
-        //Create Gamemode
-        GameInstance.Instance.CreateGameMdoe(_player.GetController() as PlayerController, _player);
+        ////Create Gamemode
+        //GameInstance.Instance.CreateGameMdoe(_player.GetController() as PlayerController, _player);
+
+        DontDestroyOnLoad(Instantiate(Resources.Load("Prefabs/UI")));
 
         //Set the button numbers
         InputMng.Instance.SetButtonAmount(5);     

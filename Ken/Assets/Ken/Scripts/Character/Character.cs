@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Character : Pawn
 {
+    public delegate void DelegateOnDeath();
+    public event DelegateOnDeath EventOnDeath;
+
     public enum ECharState
     {
         Idle,
@@ -24,7 +27,7 @@ public class Character : Pawn
         public Rigidbody Rigid;
         public Collider Col;
         public Animator Anim;
-        public AnimEvent AnimEvent;
+        public CharacterEvent CharEvent;
         public Transform ModelTrans;
         public CharacterShake CharShake;
     }
@@ -56,6 +59,8 @@ public class Character : Pawn
     protected Vector3 m_vKnockBackDir;
     protected bool m_bIsPerfectGuard;
     protected bool m_bIsCounter;
+    protected bool m_bInvincible;
+    protected bool m_bIsDead = false;
 
 
     public Character() {}
@@ -74,10 +79,10 @@ public class Character : Pawn
         //Set animator parameters string to hash
         SetAnimParaHash();
 
-        m_Avatar.AnimEvent.EventAttack += OnAttack;
-        m_Avatar.AnimEvent.EventCounter += OnCounter;
-        m_Avatar.AnimEvent.EventPerfectGuard += SetPerfectGuard;
-        m_Avatar.AnimEvent.EventSkill += OnSkill;
+        m_Avatar.CharEvent.EventAttack += OnAttack;
+        m_Avatar.CharEvent.EventCounter += OnCounter;
+        m_Avatar.CharEvent.EventPerfectGuard += SetPerfectGuard;
+        m_Avatar.CharEvent.EventSkill += OnSkill;
         m_Attribute.EventOnDeath += OnDeath;
     }
 
@@ -132,8 +137,14 @@ public class Character : Pawn
         SkillMng.Instance.GetSkill(name).SkillAttack();
     }
 
-    protected virtual void OnDeath()
+    public virtual void OnDeath()
     {
+        if(true == m_bIsDead)
+        {
+            return;
+        }
+
+        m_bIsDead = true;
 
         SetAnimBool(GetAnimParamId().IsDead, true);
         GetAnimator().Play("Death");
@@ -142,6 +153,17 @@ public class Character : Pawn
          {
              m_Avatar.Trans.gameObject.SetActive(false);
          });
+
+        if(EventOnDeath != null)
+        {
+            EventOnDeath.Invoke();
+        }
+    }
+
+    public virtual void OnRevive()
+    {
+        //SetCharacterPosition(new Vector3(12, 0, 0));
+        //m_Attribute.SetHp(m_Attribute.MaxHp);
     }
 
     public void ShiftIdleMode()
@@ -160,7 +182,11 @@ public class Character : Pawn
     {
         m_Attribute.CalDamage(attacker);
         SetAnimTrigger(GetAnimParamId().Hited);
-        m_Avatar.Rigid.AddForce(m_vKnockBackDir * 200);
+    }
+
+    public virtual void UnderAttack()
+    {
+        SetAnimTrigger(GetAnimParamId().Hited);
     }
 
     public virtual void Defense()
@@ -305,6 +331,11 @@ public class Character : Pawn
         return m_Avatar.Trans.position;
     }
 
+    public void SetCharacterPosition(Vector3 pos)
+    {
+        m_Avatar.Trans.position = pos;
+    }
+
     public Vector3 GetCharacterForward()
     {
         return m_Avatar.Trans.forward;
@@ -330,13 +361,14 @@ public class Character : Pawn
         m_Attribute = attribute;
     }
 
-    public void SetAvatar(GameObject avatar)
+    public virtual void SetAvatar(GameObject avatar)
     {
         m_Avatar.Trans = avatar.transform;
         m_Avatar.Rigid = avatar.transform.GetComponent<Rigidbody>();
         m_Avatar.Col = avatar.transform.GetComponent<Collider>();
         m_Avatar.Anim = avatar.transform.GetComponent<Animator>();
-        m_Avatar.AnimEvent = avatar.transform.GetComponent<AnimEvent>();
+        m_Avatar.CharEvent = avatar.transform.GetComponent<CharacterEvent>();
+        m_Avatar.CharEvent.SetCharacter(this);
         m_Avatar.ModelTrans = avatar.transform.GetChild(0);
         m_Avatar.CharShake = m_Avatar.ModelTrans.GetComponent<CharacterShake>();
     }
@@ -361,6 +393,11 @@ public class Character : Pawn
         return m_Attribute.JumpTimes;
     }
 
+    public void SetJumpTimes(int value)
+    {
+        m_Attribute.SetJumpTimes(value);
+    }
+
     public int GetCurrentJumpTimes()
     {
         return m_iCurrentJumpTimes;
@@ -374,7 +411,10 @@ public class Character : Pawn
     public void FallOnGround()
     {
         ResetJumpTimes();
-        m_Attribute.SetMoveSpeedAtten(1);
+        if(m_eCharState != ECharState.Defence)
+        {
+          m_Attribute.SetMoveSpeedAtten(1);
+        }
     }
 
     public void JumpIntoAir()
@@ -402,6 +442,7 @@ public class Character : Pawn
     public virtual void SetKnockBackDir(Vector3 dir)
     {
         m_vKnockBackDir = dir;
+        m_Avatar.Rigid.AddForce(m_vKnockBackDir * 200);
     }
 
     public Vector3 GetVelocity()
@@ -459,13 +500,32 @@ public class Character : Pawn
         return m_bIsCounter;
     }
 
+    public void SetInvincible(float time)
+    {
+        m_bInvincible = true;
+        GameTools.Instance.TimerForSeconds(time, () =>
+         {
+             m_bInvincible = false;
+         });
+    }
+
+    public bool IsInvincible()
+    {
+        return m_bInvincible;
+    }
+
     public void Dash(float value)
     {
         m_Avatar.Trans.Translate(GetModelForward() * value,Space.World);
     }
 
-    public void CharacterShake()
+    public virtual void CharacterShake()
     {
         m_Avatar.CharShake.DoShake(0.6f);
+    }
+
+    public void BindHpChangeEvent(CharacterAttrBase.OnHpChange fun)
+    {
+        m_Attribute.EventHpChange += fun;
     }
 }

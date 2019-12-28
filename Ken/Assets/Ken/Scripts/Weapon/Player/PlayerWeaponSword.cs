@@ -29,7 +29,7 @@ public class PlayerWeaponSword : PlayerWeaponMelee
                 enemy.CharacterShake();
             }
 
-            m_Owner.AnimPauseForSeconds(0.06f);
+            m_Owner.AnimPauseForSeconds(0.07f);
         }
     }
 

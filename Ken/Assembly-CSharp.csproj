@@ -62,12 +62,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\HorizontalTrigger.cs" />
     <Compile Include="Assets\Ken\Scripts\AI\AISkeleton.cs" />
     <Compile Include="Assets\Ken\Scripts\AI\AIStateBase.cs" />
     <Compile Include="Assets\Ken\Scripts\AI\AIStateMachine.cs" />
-    <Compile Include="Assets\Ken\Scripts\Animator\AnimEvent.cs" />
     <Compile Include="Assets\Ken\Scripts\Animator\AttackState.cs" />
+    <Compile Include="Assets\Ken\Scripts\Animator\CharacterEvent.cs" />
     <Compile Include="Assets\Ken\Scripts\Animator\CounterState.cs" />
     <Compile Include="Assets\Ken\Scripts\Animator\DeathState.cs" />
     <Compile Include="Assets\Ken\Scripts\Animator\DefenceState.cs" />
@@ -98,6 +97,7 @@
     <Compile Include="Assets\Ken\Scripts\Character\CharacterShake.cs" />
     <Compile Include="Assets\Ken\Scripts\Character\Pawn.cs" />
     <Compile Include="Assets\Ken\Scripts\Character\Player.cs" />
+    <Compile Include="Assets\Ken\Scripts\Character\Sandbag.cs" />
     <Compile Include="Assets\Ken\Scripts\Character\Skeleton.cs" />
     <Compile Include="Assets\Ken\Scripts\Controller\AIController.cs" />
     <Compile Include="Assets\Ken\Scripts\Controller\ControllerBase.cs" />
@@ -116,14 +116,31 @@
     <Compile Include="Assets\Ken\Scripts\Input\InputMng.cs" />
     <Compile Include="Assets\Ken\Scripts\Level\Level01.cs" />
     <Compile Include="Assets\Ken\Scripts\Level\Level02.cs" />
+    <Compile Include="Assets\Ken\Scripts\Level\Level03.cs" />
     <Compile Include="Assets\Ken\Scripts\Level\LevelBase.cs" />
     <Compile Include="Assets\Ken\Scripts\Level\LevelMng.cs" />
     <Compile Include="Assets\Ken\Scripts\Level\LevelTest.cs" />
+    <Compile Include="Assets\Ken\Scripts\Scene\EnemySpawn.cs" />
+    <Compile Include="Assets\Ken\Scripts\Scene\MainMenu.cs" />
     <Compile Include="Assets\Ken\Scripts\Skill\ComboSystem.cs" />
     <Compile Include="Assets\Ken\Scripts\Skill\SkillBase.cs" />
     <Compile Include="Assets\Ken\Scripts\Skill\SkillIai.cs" />
     <Compile Include="Assets\Ken\Scripts\Skill\SkillMng.cs" />
+    <Compile Include="Assets\Ken\Scripts\Temp\BossKey.cs" />
+    <Compile Include="Assets\Ken\Scripts\Temp\BulletSpawn.cs" />
+    <Compile Include="Assets\Ken\Scripts\Temp\EnemyReboundProjectile.cs" />
+    <Compile Include="Assets\Ken\Scripts\Temp\EnemySpawnInit.cs" />
+    <Compile Include="Assets\Ken\Scripts\Temp\EnemySpawnUnlimited.cs" />
+    <Compile Include="Assets\Ken\Scripts\Temp\EnemyWeaponProjectile.cs" />
+    <Compile Include="Assets\Ken\Scripts\Trigger\ActivateDoubleJump.cs" />
+    <Compile Include="Assets\Ken\Scripts\Trigger\HorizontalTrigger.cs" />
+    <Compile Include="Assets\Ken\Scripts\Trigger\TriggerDeath.cs" />
+    <Compile Include="Assets\Ken\Scripts\Trigger\TriggerNextLevel.cs" />
+    <Compile Include="Assets\Ken\Scripts\Trigger\VerticalTrigger.cs" />
     <Compile Include="Assets\Ken\Scripts\UI\UICombo.cs" />
+    <Compile Include="Assets\Ken\Scripts\UI\UIComboCount.cs" />
+    <Compile Include="Assets\Ken\Scripts\UI\UIEnemyHP.cs" />
+    <Compile Include="Assets\Ken\Scripts\UI\UIHP.cs" />
     <Compile Include="Assets\Ken\Scripts\UI\UISkill.cs" />
     <Compile Include="Assets\Ken\Scripts\Weapon\Enemy\EnemyWeaponMelee.cs" />
     <Compile Include="Assets\Ken\Scripts\Weapon\Enemy\EnemyWeaponSword.cs" />
@@ -132,8 +149,6 @@
     <Compile Include="Assets\Ken\Scripts\Weapon\WeaponBase.cs" />
     <Compile Include="Assets\Ken\Scripts\Weapon\WeaponMelee.cs" />
     <Compile Include="Assets\Ken\Scripts\Weapon\WeaponProjectile.cs" />
-    <Compile Include="Assets\MainMenu.cs" />
-    <Compile Include="Assets\VerticalTrigger.cs" />
     <None Include="Assets\Ken\Models\Unitychan\Shader\Unitychan_chara_eye.shader" />
     <None Include="Assets\Ken\Models\Unitychan\Shader\Unitychan_chara_fuku.shader" />
     <None Include="Assets\Ken\Audios\Voice\Unitychan\unity-chan_voice_list.txt" />

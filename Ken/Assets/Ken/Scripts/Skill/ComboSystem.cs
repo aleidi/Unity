@@ -8,6 +8,8 @@ public class ComboSystem
     public event OnSkillEnergyChange EventSkillEnergyChange;
     public delegate void OnComboEnergyChange(float value);
     public event OnComboEnergyChange EventComboEnergyChange;
+    public delegate void OnComboCountChange(int value);
+    public event OnComboCountChange EventComboCountChange;
 
     private int m_iSkillEnergy;
     private int m_iComboEnergy;
@@ -16,7 +18,7 @@ public class ComboSystem
 
     private int MaxSkillEnergy = 10;
     private int MaxComboEnergy = 100;
-    private float CountInterval = 5;
+    private float CountInterval = 2;
 
     public ComboSystem()
     {
@@ -36,7 +38,18 @@ public class ComboSystem
         else
         {
             m_iNowCount = 0;
+
+            if (EventComboCountChange != null)
+            {
+                EventComboCountChange.Invoke(m_iNowCount);
+            }
+
             m_iComboEnergy = 0;
+
+            if(EventComboEnergyChange != null)
+            {
+                EventComboEnergyChange.Invoke(m_iComboEnergy);
+            }
         }
 
     }
@@ -44,6 +57,12 @@ public class ComboSystem
     public void AddComboCount(int value)
     {
         m_iNowCount += value;
+
+        if(EventComboCountChange != null)
+        {
+            EventComboCountChange.Invoke(m_iNowCount);
+        }
+
         ResetComboTimer();
     }
 

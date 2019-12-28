@@ -15,6 +15,11 @@ public class EnemyWeaponSword : EnemyWeaponMelee
                 return;
             }
 
+            if(true == _player.IsInvincible())
+            {
+                return;
+            }
+
             //Counter Process
             if(_player.IsCounter())
             {
@@ -22,12 +27,19 @@ public class EnemyWeaponSword : EnemyWeaponMelee
                 m_Owner.AnimPauseForSeconds(0.3f);
 
                 (_player as Player).AddSkillEnergy(1);
+                _player.SetInvincible(2);
+                m_Owner.UnderAttack(_player);
                 return;
             }
 
             //Perfect Guard Process
             if(_player.IsPerfectGuard())
             {
+                if(_player.GetController().IsOnAir())
+                {
+                    _player.SetKnockBackDir((_player.GetCharacterPosition() - m_Owner.GetCharacterPosition()) * 1.5f);
+                }
+
                 _player.PlayPerfectGuardAnim();
                 m_Owner.SetAnimPlaySpeed(-1);
                 GameTools.Instance.TimerForSeconds(0.3f, () =>
@@ -37,6 +49,7 @@ public class EnemyWeaponSword : EnemyWeaponMelee
                  });
 
                 (_player as Player).AddComboEnergy(35);
+                _player.SetInvincible(0.3f);
 
                 return;
             }
@@ -59,6 +72,7 @@ public class EnemyWeaponSword : EnemyWeaponMelee
             m_Owner.AnimPauseForSeconds(0.1f);
             CameraMng.Instance.SetPlayerHitedShakeParam();
             CameraMng.Instance.DoCameraShake(_player.GetCharacterPosition(), 9, 0.6f);
+
         }
     }
 }

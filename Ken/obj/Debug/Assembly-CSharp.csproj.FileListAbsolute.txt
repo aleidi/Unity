@@ -265,3 +265,5 @@ F:\GitHub\Unity\Ken\Temp\bin\Debug\Unity.CollabProxy.Editor.pdb
 F:\GitHub\Unity\Ken\Temp\bin\Debug\Unity.Rider.Editor.pdb
 F:\GitHub\Unity\Ken\Temp\bin\Debug\Unity.TextMeshPro.pdb
 F:\GitHub\Unity\Ken\Temp\bin\Debug\UnityEditor.UI.pdb
+F:\GitHub\Unity\Ken\Temp\bin\Debug\Unity.2D.Sprite.Editor.dll
+F:\GitHub\Unity\Ken\Temp\bin\Debug\Unity.2D.Sprite.Editor.pdb

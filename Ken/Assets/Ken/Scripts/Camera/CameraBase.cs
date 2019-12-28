@@ -49,4 +49,9 @@ public abstract class CameraBase
         m_CameraShake.SetPlayerHitedShakeParam();
     }
 
+    public void SetPosition(Vector3 pos)
+    {
+        m_MainCamera.transform.position = pos;
+    }
+
 }

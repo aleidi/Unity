@@ -48,4 +48,9 @@ public class GameTools : MonoBehaviour
         fun.Invoke(t);
     }
 
+    public void SetTimeScale(float value)
+    {
+        Time.timeScale = value;
+    }
+
 }

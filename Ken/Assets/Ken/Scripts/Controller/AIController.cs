@@ -21,7 +21,7 @@ public class AIController : ControllerBase
 
     public override void OnUpdate(float deltaTime)
     {
-        base.OnUpdate(deltaTime);
+       // base.OnUpdate(deltaTime);
 
         m_AIMachine.OnUpdate(deltaTime);
 

@@ -6,6 +6,6 @@ public class AssetFactory
 {
     public GameObject LoadModel(string name)
     {
-        return Resources.Load("Model/" + name) as GameObject;   
+        return Resources.Load("Prefabs/" + name) as GameObject;   
     }
 }

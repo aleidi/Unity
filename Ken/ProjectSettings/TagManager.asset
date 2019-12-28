@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Monster
+  - NextLevel
+  - DeathTrigger
+  - Environment
   layers:
   - Default
   - TransparentFX

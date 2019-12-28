@@ -6,7 +6,7 @@ public abstract class CharacterFactoryBase
                                               EWeapon eWeapon,
                                               Vector3 spawnPosition);
 
-    public abstract Character CreateMonster(EEnemy EEnemy,
+    public abstract Character CreateEnemy(EEnemy EEnemy,
                                             EWeapon eWeapon,
                                             Vector3 spawnPosition);
 }

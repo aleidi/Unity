@@ -4,7 +4,7 @@ public class EnemyBuildParam : CharacterBuildParamBase
 {
     public EnemyBuildParam() { }
 
-    public EEnemy MonsterType { get; set; }
+    public EEnemy EnemyType { get; set; }
 }
 
 public class EnemyBuilder : CharacterBuilderBase
@@ -34,13 +34,35 @@ public class EnemyBuilder : CharacterBuilderBase
 
     public override void SetCharacterAttr()
     {
-        switch(m_BuildParam.MonsterType)
+        EnemyAttribute _attribtue = new EnemyAttribute();
+        switch(m_BuildParam.EnemyType)
         {
             case EEnemy.Skeleton:
-                CharacterAttrBase _attribtue = new EnemyAttribute(100, 100, 10,
+                _attribtue.SetAttribute(100, 10, 10,
                     8f, 0.2f, 250, 1,
                     1.6f, 5,
                     "Skeleton");
+                m_BuildParam.Character.SetAttribute(_attribtue);
+                break;
+            case EEnemy.SkeletonHighHp:
+                _attribtue.SetAttribute(1000, 10, 10,
+                    8f, 0.2f, 250, 1,
+                    1.6f, 5,
+                    "Skeleton");
+                m_BuildParam.Character.SetAttribute(_attribtue);
+                break;
+            case EEnemy.Sangbag:
+                _attribtue.SetAttribute(100, 0, 10,
+                    8f, 0.2f, 250, 1,
+                    0, 0,
+                    "Sandbag");
+                m_BuildParam.Character.SetAttribute(_attribtue);
+                break;
+            case EEnemy.Boss:
+                _attribtue.SetAttribute(2500, 2500, 30,
+                    8f, 0.2f, 250, 1,
+                    1.6f, 8,
+                    "Boss");
                 m_BuildParam.Character.SetAttribute(_attribtue);
                 break;
             default:
@@ -54,14 +76,29 @@ public class EnemyBuilder : CharacterBuilderBase
 
     public override void SetController()
     {
-        m_BuildParam.Character.SetController(new AIController(m_BuildParam.Character));
-        (m_BuildParam.Character.GetController() as AIController).SetAIMachine(new AIStateMachine(m_BuildParam.Character));
-        (m_BuildParam.Character.GetController() as AIController).GetAIMachine().AddState(new AISkeleton.Idle());
-        (m_BuildParam.Character.GetController() as AIController).GetAIMachine().AddState(new AISkeleton.Chase());
-        (m_BuildParam.Character.GetController() as AIController).GetAIMachine().AddState(new AISkeleton.Attack());
-        (m_BuildParam.Character.GetController() as AIController).GetAIMachine().AddState(new AISkeleton.Death());
+        switch (m_BuildParam.EnemyType)
+        {
+            case EEnemy.Skeleton:
+            case EEnemy.SkeletonHighHp:
+            case EEnemy.Boss:
+                m_BuildParam.Character.SetController(new AIController(m_BuildParam.Character));
+                (m_BuildParam.Character.GetController() as AIController).SetAIMachine(new AIStateMachine(m_BuildParam.Character));
+                (m_BuildParam.Character.GetController() as AIController).GetAIMachine().AddState(new AISkeleton.Idle());
+                (m_BuildParam.Character.GetController() as AIController).GetAIMachine().AddState(new AISkeleton.Chase());
+                (m_BuildParam.Character.GetController() as AIController).GetAIMachine().AddState(new AISkeleton.Attack());
+                (m_BuildParam.Character.GetController() as AIController).GetAIMachine().AddState(new AISkeleton.Death());
 
-        (m_BuildParam.Character.GetController() as AIController).GetAIMachine().SetDefualtState((int)AIStateBase.EStateType.Idle);
+                (m_BuildParam.Character.GetController() as AIController).GetAIMachine().SetDefualtState((int)AIStateBase.EStateType.Idle);
+                break;
+            case EEnemy.Sangbag:
+                m_BuildParam.Character.SetController(new AIController(m_BuildParam.Character));
+                (m_BuildParam.Character.GetController() as AIController).SetAIMachine(new AIStateMachine(m_BuildParam.Character));
+                (m_BuildParam.Character.GetController() as AIController).GetAIMachine().AddState(new AISkeleton.Idle());
+                (m_BuildParam.Character.GetController() as AIController).GetAIMachine().SetDefualtState((int)AIStateBase.EStateType.Idle);
+                break;
+            default:
+                break;
+        }
     }
 
     public override void AddCharacterToList()
@@ -69,7 +106,7 @@ public class EnemyBuilder : CharacterBuilderBase
         FactoryMng.Instance.AddEnemyToList(m_BuildParam.Character);
 
         //Set spawn position
-        (m_BuildParam.Character as Skeleton).SetSpawnPosition(m_BuildParam.SpawnPos);
+        //(m_BuildParam.Character as Skeleton).SetSpawnPosition(m_BuildParam.SpawnPos);
     }
 
 }

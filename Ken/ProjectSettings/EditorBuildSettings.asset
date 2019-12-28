@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Ken/Scenes/Level02.unity
     guid: 8f3af78910767184998c649af763e2ea
+  - enabled: 1
+    path: Assets/Ken/Scenes/Level03.unity
+    guid: e3850242e536c3641b4fcbcdd5fbba75
   m_configObjects: {}

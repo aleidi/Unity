@@ -5,9 +5,13 @@ using UnityEngine;
 public abstract class LevelBase
 {
     protected string m_sName;
+    protected TriggerNextLevel m_TNextLevel;
 
+    public virtual void EnterLevel()
+    {
+        m_TNextLevel = GameObject.FindGameObjectWithTag("NextLevel").GetComponent<TriggerNextLevel>();
+    }
 
-    public abstract void EnterLevel();
     public abstract void LeaveLevel();
     public virtual void OnUpdate(float deltaTime) { }
 
@@ -18,4 +22,6 @@ public abstract class LevelBase
     {
         return m_sName;
     }
+
+    protected virtual void ChangeNextLevel() { }
 }

@@ -25,11 +25,11 @@ public class FactoryMng
 
     public void OnInit()
     {
-        foreach (Character enemy in m_EnemyList)
-        {
-            enemy.GetController().OnInit();
-            enemy.OnInit();
-        }
+        //foreach (Character enemy in m_EnemyList)
+        //{
+        //    enemy.GetController().OnInit();
+        //    enemy.OnInit();
+        //}
     }
 
     public void OnUpdate(float deltaTime)
@@ -62,5 +62,23 @@ public class FactoryMng
     public AssetFactory GetAssetFactory()
     {
         return m_AssetFactory;
+    }
+
+    public void ClearEnemyList()
+    {
+        m_EnemyList.Clear();
+    }
+
+    public Character CreateEnemy(EEnemy eEnemy, EWeapon eWeapon, Vector3 spawnPosition)
+    {
+        Character _char = m_CharacterFactory.CreateEnemy(eEnemy, eWeapon, spawnPosition);
+        _char.GetController().OnInit();
+        _char.OnInit();
+        return _char;
+    }
+
+    public Character CreatePlayer(EPlayer eChar, EWeapon eWeapon,Vector3 spawnPosition)
+    {
+        return m_CharacterFactory.CreatePlayer(eChar, eWeapon, spawnPosition);
     }
 }

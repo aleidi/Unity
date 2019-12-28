@@ -55,6 +55,7 @@ public class SkillIai : SkillBase
 
     public override void SkillAttack()
     {
+
         List<Character> _mList;
         if (GetAttackee(out _mList))
         {
@@ -73,8 +74,10 @@ public class SkillIai : SkillBase
                     GameTools.Instance.TimerForSeconds(0.1f*i, ()=>
                     {
                         enemy.UnderAttack(m_Owner);
+                        enemy.CharacterShake();
+                        CameraMng.Instance.DoCameraShake(enemy.GetCharacterPosition(), 9, 0.2f * i);
                         (m_Owner as Player).AddComboCount(1);
-                        (m_Owner as Player).AddComboEnergy((m_Owner as Player).GetComboCount());
+                        (m_Owner as Player).AddComboEnergy(5);
                     });
                 }
             }

@@ -5,7 +5,10 @@
 
 public enum EEnemy
 {
-    Skeleton
+    Skeleton,
+    SkeletonHighHp,
+    Sangbag,
+    Boss
 }
 
 public enum EWeapon

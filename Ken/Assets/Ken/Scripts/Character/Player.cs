@@ -67,4 +67,24 @@ public class Player : Character
 
         SkillMng.Instance.UseSkill("Iai");
     }
+
+    public override void SetAvatar(GameObject avatar)
+    {
+        base.SetAvatar(avatar);
+
+        Object.DontDestroyOnLoad(m_Avatar.Trans.gameObject);
+    }
+
+    public override void OnDeath()
+    {
+
+        OnRevive();
+    }
+
+
+    public override void OnRevive()
+    {
+        SetCharacterPosition(new Vector3(12, 0, 0));
+        m_Attribute.SetHp(m_Attribute.MaxHp);
+    }
 }

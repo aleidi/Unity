@@ -4,6 +4,8 @@ public abstract class CharacterAttrBase
 {
     public delegate void OnDeath();
     public event OnDeath EventOnDeath;
+    public delegate void OnHpChange(float value);
+    public event OnHpChange EventHpChange;
 
     public int MaxHp { get; protected set; }
     protected int m_iNowHp;
@@ -57,7 +59,7 @@ public abstract class CharacterAttrBase
         return m_iNowEndurance;
     }
 
-    public virtual int CalDamage(Character attacker)
+    public virtual void CalDamage(Character attacker)
     {
         m_iNowHp -= attacker.GetAttribute().Atk;
         if(m_iNowHp <= 0)
@@ -70,6 +72,42 @@ public abstract class CharacterAttrBase
             }
         }
         //Debug.Log("hp after damage:" + m_iNowHp);
-        return m_iNowHp;
+
+        if(EventHpChange != null)
+        {
+            EventHpChange.Invoke((float)m_iNowHp / (float)MaxHp);
+        }
     }
+
+    public virtual void CalDamage(int damage)
+    {
+        m_iNowHp -= damage;
+        if (m_iNowHp <= 0)
+        {
+            m_iNowHp = 0;
+
+            if (EventOnDeath != null)
+            {
+                EventOnDeath.Invoke();
+            }
+        }
+        //Debug.Log("hp after damage:" + m_iNowHp);
+
+        if (EventHpChange != null)
+        {
+            EventHpChange.Invoke((float)m_iNowHp / (float)MaxHp);
+        }
+    }
+
+    public void SetJumpTimes(int value)
+    {
+        JumpTimes = value;
+    }
+
+    public void SetHp(int value)
+    {
+        m_iNowHp = value;
+        EventHpChange.Invoke(m_iNowHp);
+    }
+
 }

@@ -39,32 +39,45 @@ public class CharacterFactory : CharacterFactoryBase
         return _playerParam.Character; 
     }
 
-    public override Character CreateMonster(EEnemy EEnemy, EWeapon eWeapon, Vector3 spawnPosition)
+    public override Character CreateEnemy(EEnemy eEnemy, EWeapon eWeapon, Vector3 spawnPosition)
     {
         //Set monster parameter
-        EnemyBuildParam _monsterParam = new EnemyBuildParam();
+        EnemyBuildParam _enemyParam = new EnemyBuildParam();
 
-        switch(EEnemy)
+        switch(eEnemy)
         {
             case EEnemy.Skeleton:
-                _monsterParam.Character = new Skeleton();
+                _enemyParam.Character = new Skeleton();
+                _enemyParam.EnemyType = EEnemy.Skeleton;
+                break;
+            case EEnemy.SkeletonHighHp:
+                _enemyParam.Character = new Skeleton();
+                _enemyParam.EnemyType = EEnemy.SkeletonHighHp;
+                break;
+            case EEnemy.Sangbag:
+                _enemyParam.Character = new Sandbag();
+                _enemyParam.EnemyType = EEnemy.Sangbag;
+                break;
+            case EEnemy.Boss:
+                _enemyParam.Character = new Skeleton();
+                _enemyParam.EnemyType = EEnemy.Boss;
                 break;
             default:
-                Debug.LogError("CreateMonster can't create monster");
+                Debug.LogError("CreateEnemy can't create monster");
                 break;
         }
 
         //Set monster parameter
-        _monsterParam.EWeapon = eWeapon;
-        _monsterParam.SpawnPos = spawnPosition;
+        _enemyParam.EWeapon = eWeapon;
+        _enemyParam.SpawnPos = spawnPosition;
 
         //Create the monster builder and set the parameter
         EnemyBuilder _monsterBuilder = new EnemyBuilder();
-        _monsterBuilder.SetBuildParam(_monsterParam);
+        _monsterBuilder.SetBuildParam(_enemyParam);
 
         //Produce
         m_BuilderDirector.Construct(_monsterBuilder);
 
-        return _monsterParam.Character;
+        return _enemyParam.Character;
     }
 }

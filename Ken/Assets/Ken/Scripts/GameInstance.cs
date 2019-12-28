@@ -112,4 +112,9 @@ public class GameInstance
     {
         SceneManager.LoadScene(name);
     }
+
+    public void BindEventPlayerHpCHnage(CharacterAttrBase.OnHpChange fun)
+    {
+        GetPlayerPawn().BindHpChangeEvent(fun);
+    }
 }

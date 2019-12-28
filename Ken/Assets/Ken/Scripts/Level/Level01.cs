@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Level01 : LevelBase
 {
-    private float timer = 8;
-
     public Level01()
     {
         m_sName = "Level01";
@@ -13,21 +11,44 @@ public class Level01 : LevelBase
 
     public override void EnterLevel()
     {
-        Debug.Log(m_sName + ": init");
+        base.EnterLevel();
+
+        EnemySpawn[] tmp = GameObject.FindObjectsOfType<EnemySpawn>();
+        foreach(EnemySpawn es in tmp)
+        {
+            es.SpawnEnemy();
+        }
+
+        Character _player = FactoryMng.Instance.CreatePlayer(EPlayer.Player, EWeapon.Sword, new Vector3(0, 5, 0f));
+
+        //Create Gamemode
+        GameInstance.Instance.CreateGameMdoe(_player.GetController() as PlayerController, _player);
+
+        m_TNextLevel.EventToNextLevel += ChangeNextLevel;
     }
 
-    public override void LeaveLevel() { }
+    public override void LeaveLevel()
+    {
+        FactoryMng.Instance.ClearEnemyList();
+    }
 
     public override void OnUpdate(float deltaTime)
     {
-        Debug.Log(m_sName + ": Update");
 
-
-        timer -= deltaTime;
-        if(timer < 0)
+        if(Input.GetKeyDown(KeyCode.Alpha2))
         {
-            LevelMng.Instance.ChangeLevel(new Level02());
-            GameInstance.Instance.OpenLevel("Level02");
+            ChangeNextLevel();
         }
+
+    }
+
+    protected override void ChangeNextLevel()
+    {
+        GameInstance.Instance.OpenLevel("Level02");
+
+        GameTools.Instance.TimerForSeconds(0.1f, () =>
+         {
+             LevelMng.Instance.ChangeLevel(new Level02());
+         });
     }
 }

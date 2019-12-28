@@ -85,4 +85,9 @@ public class CameraMng
         return (m_Camera as Camera2D).IsTraceInVertical();
     }
 
+    public void SetTarget(Vector3 t)
+    {
+        m_Camera.SetTarget(t);
+    }
+
 }
