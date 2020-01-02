@@ -60,7 +60,7 @@ public class EnemyWeaponProjectile: MonoBehaviour
             _player.PlayPerfectGuardAnim();
             (_player as Player).AddComboEnergy(5);
 
-            _player.SetKnockBackDir(Vector3.up);
+            _player.SetKnockBackDir(Vector3.up * 2);
 
 
             transform.forward = Vector3.down;
@@ -78,11 +78,11 @@ public class EnemyWeaponProjectile: MonoBehaviour
             (_player as Player).AddComboEnergy(5);
             if(_player.GetController().IsOnAir())
             {
-                _player.SetKnockBackDir(Vector3.up * 0.5f);
+                _player.SetKnockBackDir(Vector3.up * 5);
             }
             else
             {
-                _player.SetKnockBackDir( transform.forward * 2);
+                _player.SetKnockBackDir( Vector3.up * 2);
             }
 
             transform.forward = Vector3.down;

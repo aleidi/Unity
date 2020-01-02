@@ -15,20 +15,19 @@ public class EnemyWeaponSword : EnemyWeaponMelee
                 return;
             }
 
-            if(true == _player.IsInvincible())
-            {
-                return;
-            }
-
             //Counter Process
             if(_player.IsCounter())
             {
-                //_player.SetAnimPlaySpeed(0);
-                m_Owner.AnimPauseForSeconds(0.3f);
+                //Time pause
+                GameTools.Instance.SetTimeScale(0.1f);
+                GameTools.Instance.TimerForSeconds(0.015f, () =>
+                 {
+                     GameTools.Instance.SetTimeScale(1);
+                    (_player as Player).AddSkillEnergy(1);
+                    _player.SetInvincible(2);
+                    m_Owner.UnderAttack(_player);
+                 });
 
-                (_player as Player).AddSkillEnergy(1);
-                _player.SetInvincible(2);
-                m_Owner.UnderAttack(_player);
                 return;
             }
 
@@ -63,6 +62,12 @@ public class EnemyWeaponSword : EnemyWeaponMelee
 
                 (_player as Player).AddComboEnergy(5);
 
+                return;
+            }
+
+            //Character invincible process
+            if(true == _player.IsInvincible())
+            {
                 return;
             }
 

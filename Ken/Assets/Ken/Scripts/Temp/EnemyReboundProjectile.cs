@@ -34,6 +34,12 @@ public class EnemyReboundProjectile : MonoBehaviour
         {
 
             transform.forward = Vector3.up;
+            _player.AnimPauseForSeconds(0.05f);
+            GameTools.Instance.SetTimeScale(0.2f);
+            GameTools.Instance.TimerForSeconds(0.01f, () =>
+             {
+                 GameTools.Instance.SetTimeScale(1);
+             });
             return;
         }
 

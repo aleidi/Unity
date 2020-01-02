@@ -95,7 +95,7 @@ public class Character : Pawn
 
     public override void Move(float value)
     {
-        Vector3 _moveVal = Vector3.right * MoveCalculate(value) * m_Attribute.MoveSpeed * m_Attribute.MoveSpeedAtten;
+        Vector3 _moveVal = Vector3.right * MoveCalculate(value) * m_Attribute.MoveSpeed * m_Attribute.MoveSpeedAtten * Time.deltaTime;
         m_Avatar.Rigid.velocity =  new Vector3(_moveVal.x, m_Avatar.Rigid.velocity.y, _moveVal.z);
         PlayMoveAnim(value);
     }
@@ -116,10 +116,6 @@ public class Character : Pawn
 
         SetAnimTrigger(GetAnimParamId().Jump);
         GetAnimator().Play("Jump", 0, 0);
-
-        ////Reset the up velocity
-        //m_Avatar.Rigid.velocity = new Vector3(m_Avatar.Rigid.velocity.x, 0, m_Avatar.Rigid.velocity.z);
-        //m_Avatar.Rigid.AddForce(Vector3.up * m_Attribute.JumpForce);
 
         m_Avatar.Rigid.velocity = new Vector3(m_Avatar.Rigid.velocity.x, (Vector3.up * m_Attribute.JumpForce).y, m_Avatar.Rigid.velocity.z);
 

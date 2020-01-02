@@ -39,28 +39,28 @@ public class EnemyBuilder : CharacterBuilderBase
         {
             case EEnemy.Skeleton:
                 _attribtue.SetAttribute(100, 10, 10,
-                    8f, 0.2f, 250, 1,
+                    500, 0.2f, 250, 1,
                     1.6f, 5,
                     "Skeleton");
                 m_BuildParam.Character.SetAttribute(_attribtue);
                 break;
             case EEnemy.SkeletonHighHp:
                 _attribtue.SetAttribute(1000, 10, 10,
-                    8f, 0.2f, 250, 1,
+                    500, 0.2f, 250, 1,
                     1.6f, 5,
                     "Skeleton");
                 m_BuildParam.Character.SetAttribute(_attribtue);
                 break;
             case EEnemy.Sangbag:
                 _attribtue.SetAttribute(100, 0, 10,
-                    8f, 0.2f, 250, 1,
+                    500, 0.2f, 250, 1,
                     0, 0,
                     "Sandbag");
                 m_BuildParam.Character.SetAttribute(_attribtue);
                 break;
             case EEnemy.Boss:
                 _attribtue.SetAttribute(2500, 2500, 30,
-                    8f, 0.2f, 250, 1,
+                    500, 0.2f, 250, 1,
                     1.6f, 8,
                     "Boss");
                 m_BuildParam.Character.SetAttribute(_attribtue);
