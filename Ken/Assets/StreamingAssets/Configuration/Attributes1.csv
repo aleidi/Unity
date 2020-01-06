@@ -1,0 +1,6 @@
+ID,MaxHp,MaxEndurance,AttackRange,GuardRange,AttackPower,MoveSpeed,MoveSpeedAtten,JumpForce,JumpTimes,Name
+0,200,100,1.5,0,20,500,0.2,9,1,Player
+1,100,10,1.6,5,10,500,0.2,250,1,Skeleton
+2,1000,10,1.6,5,10,500,0.2,250,1,SkeletonHighHp
+3,100,0,0,0,10,500,0.2,250,1,Sandbag
+4,2500,2500,1.6,8,30,500,0.2,250,1,Boss

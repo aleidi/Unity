@@ -109,7 +109,6 @@
     <Compile Include="Assets\Ken\Scripts\GameInstance.cs" />
     <Compile Include="Assets\Ken\Scripts\GameLoop.cs" />
     <Compile Include="Assets\Ken\Scripts\GameModeBase.cs" />
-    <Compile Include="Assets\Ken\Scripts\GameTools.cs" />
     <Compile Include="Assets\Ken\Scripts\Global\ConfigMng.cs" />
     <Compile Include="Assets\Ken\Scripts\Input\AxisBase.cs" />
     <Compile Include="Assets\Ken\Scripts\Input\ButtonBase.cs" />
@@ -132,6 +131,8 @@
     <Compile Include="Assets\Ken\Scripts\Temp\EnemySpawnInit.cs" />
     <Compile Include="Assets\Ken\Scripts\Temp\EnemySpawnUnlimited.cs" />
     <Compile Include="Assets\Ken\Scripts\Temp\EnemyWeaponProjectile.cs" />
+    <Compile Include="Assets\Ken\Scripts\Tools\GameTools.cs" />
+    <Compile Include="Assets\Ken\Scripts\Tools\ResoucesMng.cs" />
     <Compile Include="Assets\Ken\Scripts\Trigger\ActivateDoubleJump.cs" />
     <Compile Include="Assets\Ken\Scripts\Trigger\HorizontalTrigger.cs" />
     <Compile Include="Assets\Ken\Scripts\Trigger\TriggerDeath.cs" />

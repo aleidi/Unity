@@ -48,7 +48,7 @@ public class EnemyBuilder : CharacterBuilderBase
                 _attribtue.SetAttribute(1000, 10, 10,
                     500, 0.2f, 250, 1,
                     1.6f, 5,
-                    "Skeleton");
+                    "SkeletonHighHp");
                 m_BuildParam.Character.SetAttribute(_attribtue);
                 break;
             case EEnemy.Sangbag:
